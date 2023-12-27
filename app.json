@@ -1,0 +1,7 @@
+{
+  "name": "IRIS Setup",
+  "displayName": "IRIS Setup",
+  "android": { 
+    "softwareKeyboardLayoutMode": "pan"
+  } 
+}

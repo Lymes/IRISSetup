@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key> CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key> CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key> CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key> LSRequiresIPhoneOS</key>
+	<true/>
+	<key> NSBluetoothAlwaysUsageDescription</key>
+	<string>$(PRODUCT_NAME) will configure WiFi of the ICC gateway via Bluetooth</string>
+	<key> NSBluetoothPeripheralUsageDescription</key>
+	<string>$(PRODUCT_NAME) will configure WiFi of the ICC gateway via Bluetooth</string>
+	<key> NSLocationWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) will configure WiFi of the ICC gateway via Bluetooth</string>
+	<key> UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>CFBundleSignature</key>
+	<string> ????</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_icc._tcp.</string>
+		<string>_rdlink._tcp.</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) needs access to your Camera</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SFProText-Bold.ttf</string>
+		<string>SFProText-Light.ttf</string>
+		<string>SFProText-Medium.ttf</string>
+		<string>SFProText-Regular.ttf</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+</dict>
+</plist>

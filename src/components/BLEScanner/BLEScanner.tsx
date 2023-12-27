@@ -1,0 +1,93 @@
+import { Alert, FlatList, Text, TouchableOpacity, View } from "react-native";
+import PrimaryButton from "~components/Buttons/PrimaryButton";
+import useBLEScannerHooks from "./useBLEScannerHooks";
+import Spinner from "~components/Spinner";
+
+interface BLEScannerProps {
+  onConnect: () => void;
+}
+
+const BLEScanner: React.FC<BLEScannerProps> = ({ onConnect }) => {
+  const {
+    style,
+    theme,
+    cloudData,
+    peripherals,
+    isScanning,
+    isConnecting,
+    peripheral,
+    setPeripheral,
+    startScan,
+    connect,
+  } = useBLEScannerHooks();
+
+  return (
+    <>
+      <View style={style.scanContainer}>
+        <View style={style.logContainer}>
+          <FlatList
+            data={peripherals}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => {
+                  setPeripheral(item);
+                }}
+              >
+                <Text
+                  numberOfLines={1}
+                  style={[
+                    style.logText,
+                    peripheral === item
+                      ? {
+                          backgroundColor: theme.colors.primaryBackground,
+                          color: theme.colors.background,
+                        }
+                      : {
+                          backgroundColor: "transparent",
+                          color: theme.colors.primary,
+                        },
+                  ]}
+                >
+                  {item.id}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+        <View style={style.buttonRow}>
+          <PrimaryButton
+            disabled={isScanning}
+            style={style.scanButton}
+            title="Scan"
+            onPress={startScan}
+          />
+          <PrimaryButton
+            disabled={peripheral === undefined}
+            style={style.scanButton}
+            title="Connect"
+            onPress={async () => {
+              if (peripheral !== undefined) {
+                let res = await connect(peripheral);
+                if (
+                  res &&
+                  cloudData.macAddress !== undefined &&
+                  cloudData.publicKey !== undefined
+                ) {
+                  onConnect();
+                } else {
+                  Alert.alert("BLE", "Cannot connect to selected device", [
+                    { text: "OK" },
+                  ]);
+                }
+              }
+            }}
+          />
+        </View>
+      </View>
+      <Spinner visible={isScanning} textContent={"Scanning..."} />
+      <Spinner visible={isConnecting} textContent={"Connecting..."} />
+    </>
+  );
+};
+
+export default BLEScanner;

@@ -1,0 +1,29 @@
+{
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode", /// TSX auto format on save Prettier
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": { /// TS auto format on save ESLint
+          "source.fixAll.eslint": true
+        }
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode", /// TSX auto format on save Prettier
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": { /// TSX auto format on save ESLint
+          "source.fixAll.eslint": true
+        }
+      },
+      "vscode-color-picker.languages": [
+        "python",
+        "javascript",
+        "typescript",
+        "typescriptx"
+    ],
+    "java.compile.nullAnalysis.mode": "disabled",
+    "[typescript][typescriptreact]": {
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+      }
+    },
+    "java.configuration.updateBuildConfiguration": "disabled",
+}
