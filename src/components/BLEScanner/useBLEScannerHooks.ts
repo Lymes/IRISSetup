@@ -34,15 +34,13 @@ export default () => {
     console.log(peripheral);
     await bleService.pair(peripheral);
     setIsConnecting(true);
-    let connected = await bleService.connect(peripheral);
-    if (!connected) {
+    if (!(await bleService.connect(peripheral))) {
       setIsConnecting(false);
       throw new Error("Cannot connect to peripheral");
     }
-    let found = await bleService.findServices(peripheral, [
-      bleService.serviceUUID,
-    ]);
-    if (!found) {
+    if (
+      !(await bleService.findServices(peripheral, [bleService.serviceUUID]))
+    ) {
       setIsConnecting(false);
       throw new Error("Cannot find IRIS service");
     }
