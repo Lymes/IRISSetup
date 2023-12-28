@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { styles } from "./SetupScreen.style";
 import useThemedStyles from "~hooks/useThemedStyles";
 import WifiManager from "react-native-wifi-reborn";
-import { PermissionsAndroid, Platform } from "react-native";
+import { Alert, PermissionsAndroid, Platform } from "react-native";
 import { useAppContext } from "~hooks/useAppContext";
 import { bleService } from "~services/bleService";
 
@@ -46,8 +46,12 @@ export default () => {
   useEffect(() => {
     (async () => {
       if (wifiPermissions === "granted") {
-        let ssid = await WifiManager.getCurrentWifiSSID();
-        setSSID(ssid);
+        try {
+          let ssid = await WifiManager.getCurrentWifiSSID();
+          setSSID(ssid);
+        } catch (error) {
+          Alert.alert("WiFi", `${error}`, [{ text: "OK" }]);
+        }
       }
     })();
   }, [wifiPermissions]);

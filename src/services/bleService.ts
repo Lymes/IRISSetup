@@ -133,7 +133,9 @@ const write = (
 ): Promise<boolean> => {
   return new Promise((resolve) => {
     if (peripheral.id === dummyPeripheral.id) {
-      resolve(true);
+      setTimeout(() => {
+        resolve(true);
+      }, 200);
       return;
     }
     const data = stringToBytes(payload);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, ImageBackground, Linking, Text, View } from "react-native";
+import { ImageBackground, Linking, Text, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "~navigation/RootStackPrams";
 import { styles } from "./BLEScreen.style";
