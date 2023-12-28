@@ -18,6 +18,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ isActive, onFound }) => {
   });
   const [cameraPermission, setCameraPermission] =
     useState<CameraPermissionStatus>("not-determined");
+  const [isInitialized, setInitialized] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -25,10 +26,10 @@ const QRScanner: React.FC<QRScannerProps> = ({ isActive, onFound }) => {
       const permission = await Camera.requestCameraPermission();
       setCameraPermission(permission);
     })();
-  }, []);
+  }, [device]);
 
   const codeScanner = useCodeScanner({
-    codeTypes: ["qr", "ean-13"],
+    codeTypes: ["qr"],
     onCodeScanned: (codes) => {
       codes.forEach((code) => {
         onFound(code.value || "");
@@ -36,7 +37,10 @@ const QRScanner: React.FC<QRScannerProps> = ({ isActive, onFound }) => {
     },
   });
 
-  console.log("Rendering QR scanner screen, isActive:", isActive);
+  console.log(
+    "Rendering QR scanner screen, isActive:",
+    isActive && isInitialized
+  );
 
   return (
     <View
@@ -52,10 +56,16 @@ const QRScanner: React.FC<QRScannerProps> = ({ isActive, onFound }) => {
       {device !== undefined && cameraPermission === "granted" ? (
         <Camera
           device={device}
-          isActive={isActive}
+          isActive={isActive && isInitialized}
           codeScanner={codeScanner}
           resizeMode="cover"
+          enableZoomGesture={true}
+          focusable={true}
           style={{ width: 300, height: 300 }}
+          onInitialized={() => {
+            console.log("Camera is initialized");
+            setInitialized(true);
+          }}
         />
       ) : (
         <Text

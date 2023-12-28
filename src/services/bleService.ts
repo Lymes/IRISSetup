@@ -14,7 +14,7 @@ enum Characteristics {
 
 const dummyPeripheral: Peripheral = {
   id: "XXX-XXXX-XXXXXXXX",
-  name: "Dummy peripheral (for AppStore)",
+  name: "Dummy peripheral (for testing)",
   rssi: -1,
   advertising: {},
 };
