@@ -104,6 +104,11 @@ export default () => {
     }
     await bleService.disconnect(peripheral);
     setIsSending(false);
+    Alert.alert(
+      "IRIS",
+      "Configuration success!\nNow wait while device is rebooting.",
+      [{ text: "OK" }]
+    );
   };
 
   return {

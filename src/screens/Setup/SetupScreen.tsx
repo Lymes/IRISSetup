@@ -53,7 +53,7 @@ export default function SetupScreen({ navigation }: SetupProps) {
               <InputText
                 value={code}
                 style={style.credentialsInput}
-                placeholder="Password"
+                placeholder="WiFi password"
                 placeholderTextColor="grey"
                 secureTextEntry={true}
                 onChangeText={setCode}

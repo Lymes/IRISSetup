@@ -25,7 +25,9 @@ export default () => {
     setIsScanning(true);
     setPeripheral(undefined);
     setPeripherals([bleService.dummyPeripheral]);
-    await bleService.startScan([bleService.serviceUUID]);
+    await bleService.startScan([
+      /*bleService.serviceUUID*/
+    ]);
   };
 
   const connect = async (peripheral: Peripheral) => {
@@ -42,7 +44,7 @@ export default () => {
     ]);
     if (!found) {
       setIsConnecting(false);
-      throw new Error("Cannot find service");
+      throw new Error("Cannot find IRIS service");
     }
     let publicKey = await bleService.read(
       peripheral,
@@ -74,14 +76,19 @@ export default () => {
     if (!bleStarted) return;
     let discoverListener = BleManagerEmitter.addListener(
       "BleManagerDiscoverPeripheral",
-      (peripheral) => {
-        setPeripherals((oldPeripherals: Peripheral[]) => {
-          let periphs = [peripheral, ...oldPeripherals];
-          const uniquePeripherals = [
-            ...new Map(periphs.map((item) => [item.id, item])).values(),
-          ];
-          return [...uniquePeripherals];
-        });
+      (peripheral: Peripheral) => {
+        if (
+          peripheral.advertising.isConnectable &&
+          (peripheral.name || peripheral.advertising.localName)
+        ) {
+          setPeripherals((oldPeripherals: Peripheral[]) => {
+            let periphs = [peripheral, ...oldPeripherals];
+            const uniquePeripherals = [
+              ...new Map(periphs.map((item) => [item.id, item])).values(),
+            ];
+            return [...uniquePeripherals];
+          });
+        }
       }
     );
     let stopScanListener = BleManagerEmitter.addListener(
