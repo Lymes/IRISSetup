@@ -59,24 +59,50 @@ export default () => {
   const sendToIris = async () => {
     if (peripheral === undefined) return;
     setIsSending(true);
-    await bleService.write(
-      peripheral,
-      bleService.serviceUUID,
-      bleService.Characteristics.wifiUUID,
-      `{"ssid": "${ssid}", "password: "${code}"}`
-    );
-    await bleService.write(
-      peripheral,
-      bleService.serviceUUID,
-      bleService.Characteristics.plantIdUUID,
-      `{"plantID": "${cloudData.plantID}"}`
-    );
-    await bleService.write(
-      peripheral,
-      bleService.serviceUUID,
-      bleService.Characteristics.rebootUUID,
-      `1`
-    );
+    if (!(await bleService.connect(peripheral))) {
+      setIsSending(false);
+      throw new Error("Cannot connect to peripheral");
+    }
+    if (
+      !(await bleService.findServices(peripheral, [bleService.serviceUUID]))
+    ) {
+      setIsSending(false);
+      throw new Error("Cannot find service");
+    }
+    if (
+      !(await bleService.write(
+        peripheral,
+        bleService.serviceUUID,
+        bleService.Characteristics.wifiUUID,
+        `{"ssid": "${ssid}", "password": "${code}"}`
+      ))
+    ) {
+      setIsSending(false);
+      throw new Error("Cannot write WiFi configuration");
+    }
+    if (
+      !(await bleService.write(
+        peripheral,
+        bleService.serviceUUID,
+        bleService.Characteristics.plantIdUUID,
+        `{"plantID": "${cloudData.plantID}"}`
+      ))
+    ) {
+      setIsSending(false);
+      throw new Error("Cannot write Plant configuration");
+    }
+    if (
+      !(await bleService.write(
+        peripheral,
+        bleService.serviceUUID,
+        bleService.Characteristics.rebootUUID,
+        `1`
+      ))
+    ) {
+      setIsSending(false);
+      throw new Error("Cannot reboot device");
+    }
+    await bleService.disconnect(peripheral);
     setIsSending(false);
   };
 

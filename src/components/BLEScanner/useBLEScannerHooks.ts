@@ -28,30 +28,46 @@ export default () => {
     await bleService.startScan([bleService.serviceUUID]);
   };
 
-  const connect = async (peripheral: Peripheral): Promise<boolean> => {
-    return new Promise(async (resolve) => {
-      console.log(peripheral);
-      await bleService.pair(peripheral);
-      setIsConnecting(true);
-      let res = await bleService.connect(peripheral);
-      await bleService.findServices(peripheral, [bleService.serviceUUID]);
-      let publicKey = await bleService.read(
-        peripheral,
-        bleService.serviceUUID,
-        bleService.Characteristics.publicKeyUUID
-      );
-      let macAddress = await bleService.read(
-        peripheral,
-        bleService.serviceUUID,
-        bleService.Characteristics.macAddressUUID
-      );
-      console.log(publicKey);
-      console.log("MAC address:", macAddress);
-      cloudData.publicKey = publicKey;
-      cloudData.macAddress = macAddress;
+  const connect = async (peripheral: Peripheral) => {
+    console.log(peripheral);
+    await bleService.pair(peripheral);
+    setIsConnecting(true);
+    let connected = await bleService.connect(peripheral);
+    if (!connected) {
       setIsConnecting(false);
-      resolve(res);
-    });
+      throw new Error("Cannot connect to peripheral");
+    }
+    let found = await bleService.findServices(peripheral, [
+      bleService.serviceUUID,
+    ]);
+    if (!found) {
+      setIsConnecting(false);
+      throw new Error("Cannot find service");
+    }
+    let publicKey = await bleService.read(
+      peripheral,
+      bleService.serviceUUID,
+      bleService.Characteristics.publicKeyUUID
+    );
+    if (publicKey === undefined) {
+      setIsConnecting(false);
+      throw new Error("Cannot read RSA public key");
+    }
+    let macAddress = await bleService.read(
+      peripheral,
+      bleService.serviceUUID,
+      bleService.Characteristics.macAddressUUID
+    );
+    if (macAddress === undefined) {
+      setIsConnecting(false);
+      throw new Error("Cannot read MAC address");
+    }
+    await bleService.disconnect(peripheral);
+    console.log(publicKey);
+    console.log("MAC address:", macAddress);
+    cloudData.publicKey = publicKey;
+    cloudData.macAddress = macAddress;
+    setIsConnecting(false);
   };
 
   useEffect(() => {

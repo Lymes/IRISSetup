@@ -48,7 +48,7 @@ const BLEScanner: React.FC<BLEScannerProps> = ({ onConnect }) => {
                         },
                   ]}
                 >
-                  {item.id}
+                  {item.name || item.advertising.localName}
                 </Text>
               </TouchableOpacity>
             )}
@@ -67,17 +67,11 @@ const BLEScanner: React.FC<BLEScannerProps> = ({ onConnect }) => {
             title="Connect"
             onPress={async () => {
               if (peripheral !== undefined) {
-                let res = await connect(peripheral);
-                if (
-                  res &&
-                  cloudData.macAddress !== undefined &&
-                  cloudData.publicKey !== undefined
-                ) {
+                try {
+                  await connect(peripheral);
                   onConnect();
-                } else {
-                  Alert.alert("BLE", "Cannot connect to selected device", [
-                    { text: "OK" },
-                  ]);
+                } catch (error) {
+                  Alert.alert("BLE", `${error}`, [{ text: "OK" }]);
                 }
               }
             }}

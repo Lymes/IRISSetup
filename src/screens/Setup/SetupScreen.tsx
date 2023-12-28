@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, Keyboard, Linking, ImageBackground, View } from "react-native";
+import {
+  Text,
+  Keyboard,
+  Linking,
+  ImageBackground,
+  View,
+  Alert,
+} from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "~navigation/RootStackPrams";
 import useSetupScreenHooks from "./useSetupScreenHooks";
@@ -56,8 +63,12 @@ export default function SetupScreen({ navigation }: SetupProps) {
                 title="Send to IRIS"
                 disabled={code === undefined || code.length < 8}
                 onPress={async () => {
-                  Keyboard.dismiss();
-                  sendToIris();
+                  try {
+                    Keyboard.dismiss();
+                    await sendToIris();
+                  } catch (error) {
+                    Alert.alert("IRIS", `${error}`, [{ text: "OK" }]);
+                  }
                 }}
               />
             </>
