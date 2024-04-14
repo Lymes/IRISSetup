@@ -15,24 +15,35 @@ export default () => {
   const style = useThemedStyles(styles);
   const [code, setCode] = useState<string | undefined>();
   const [isSending, setIsSending] = useState<boolean>(false);
-  const { cloudData } = useAppContext();
+  const { contextData, setContextData } = useAppContext();
 
-  const sendToCloud = async (navigation: QRNavigation) => {
+  const sendToCloud = async (
+    serialNumber: string,
+    navigation: QRNavigation
+  ) => {
     Keyboard.dismiss();
-    cloudData.qrCode = code;
     setIsSending(true);
     try {
-      let plant = await cloudService.getPlantID(
-        cloudData.macAddress || "unknown",
-        cloudData.publicKey || "unknown",
-        cloudData.qrCode || "unknown"
-      );
-      console.log("PlantID:", plant);
-      cloudData.plantID = plant?.plantID;
-      setIsSending(false);
-      if (cloudData.plantID !== undefined) {
-        navigation.navigate("Setup");
+      let response = await cloudService.lockLicense(serialNumber);
+      console.log("Cloud response:", response);
+
+      if (response.payload != null) {
+        let devices = contextData.cloudData;
+        devices.push(response.payload);
+        contextData.cloudData = devices;
+        setContextData(contextData);
+      } else {
+        Alert.alert(
+          "Cloud",
+          `Cannot register device: ${response.errorMessage?.message}`,
+          [{ text: "OK" }]
+        );
       }
+      console.log("context data length", contextData.cloudData.length);
+      setIsSending(false);
+      // if (cloudData.plantID !== undefined) {
+      //   navigation.navigate("Setup");
+      // }
     } catch (error) {
       setIsSending(false);
       Alert.alert("Cloud", `Cannot register device on Cloud: ${error}`, [
@@ -41,5 +52,13 @@ export default () => {
     }
   };
 
-  return { style, isFocused, isSending, code, setCode, sendToCloud };
+  return {
+    style,
+    isFocused,
+    isSending,
+    contextData,
+    code,
+    setCode,
+    sendToCloud,
+  };
 };

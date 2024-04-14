@@ -66,6 +66,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ isActive, onFound }) => {
             console.log("Camera is initialized");
             setInitialized(true);
           }}
+          onError={() => {}}
         />
       ) : (
         <Text

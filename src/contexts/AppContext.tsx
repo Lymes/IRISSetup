@@ -2,13 +2,19 @@ import React, { createContext, useState, useEffect } from "react";
 import { CloudData } from "~services/cloudService";
 import { bleService } from "~services/bleService";
 import { Peripheral } from "react-native-ble-manager";
+import usePersist from "react-native-persist-context";
 
 export type AppContextData = {
-  cloudData: CloudData;
+  contextData: AppContextPersistedData;
+  setContextData(data: AppContextPersistedData): void;
   blePermissionsGranted: boolean;
   bleStarted: boolean;
   peripheral?: Peripheral;
   setPeripheral(peripheral?: Peripheral): void;
+};
+
+type AppContextPersistedData = {
+  cloudData: CloudData[];
 };
 
 const AppContext = createContext<AppContextData>({} as AppContextData);
@@ -18,12 +24,12 @@ type Props = {
 };
 
 const AppContextProvider: React.FC<Props> = ({ children }) => {
-  const [cloudData, setCloudData] = useState<CloudData>({
-    macAddress: undefined,
-    publicKey: undefined,
-    qrCode: undefined,
-    plantID: undefined,
-  });
+  // Using usePersist hook with initial values and persist key
+  const [contextData, setContextData, clear] =
+    usePersist<AppContextPersistedData>("appContext", {
+      cloudData: [],
+    });
+
   const [bleStarted, setBLEStarted] = useState(false);
   const [blePermissionsGranted, setBLEPermissions] = useState(false);
   const [peripheral, setPeripheral] = useState<Peripheral | undefined>(
@@ -46,7 +52,8 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
     // so all components will have access to the Context
     <AppContext.Provider
       value={{
-        cloudData,
+        contextData,
+        setContextData,
         blePermissionsGranted,
         bleStarted,
         peripheral,

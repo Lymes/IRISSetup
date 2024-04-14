@@ -1,60 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { styles } from "./SetupScreen.style";
 import useThemedStyles from "~hooks/useThemedStyles";
-import WifiManager from "react-native-wifi-reborn";
-import { Alert, PermissionsAndroid, Platform } from "react-native";
+import { Alert } from "react-native";
 import { useAppContext } from "~hooks/useAppContext";
 import { bleService } from "~services/bleService";
+import { CloudData } from "~services/cloudService";
+import useTheme from "~hooks/useTheme";
 
 export default () => {
+  const theme = useTheme();
   const style = useThemedStyles(styles);
-  const { cloudData, peripheral } = useAppContext();
-  const [ssid, setSSID] = useState<string | undefined>();
-  const [code, setCode] = useState<string | undefined>();
+  const { contextData, setContextData, peripheral } = useAppContext();
+  const [license, setLicense] = useState<CloudData | undefined>();
   const [isSending, setIsSending] = useState<boolean>(false);
-  const [wifiPermissions, setWiFiPermissions] = useState<string>("denied");
-
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS === "ios") {
-        setWiFiPermissions("granted");
-        return;
-      }
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: "IRIS App Permission",
-            message:
-              "Location permission is required to connect with or scan for Wifi networks. ",
-            buttonNeutral: "Ask Me Later",
-            buttonNegative: "Cancel",
-            buttonPositive: "OK",
-          }
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          setWiFiPermissions("granted");
-        } else {
-          console.log("Location permission denied");
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      if (wifiPermissions === "granted") {
-        try {
-          let ssid = await WifiManager.getCurrentWifiSSID();
-          setSSID(ssid);
-        } catch (error) {
-          Alert.alert("WiFi", `${error}`, [{ text: "OK" }]);
-        }
-      }
-    })();
-  }, [wifiPermissions]);
 
   const sendToIris = async () => {
     if (peripheral === undefined) return;
@@ -73,30 +31,8 @@ export default () => {
       !(await bleService.write(
         peripheral,
         bleService.serviceUUID,
-        bleService.Characteristics.wifiUUID,
-        `{"ssid": "${ssid}", "password": "${code}"}`
-      ))
-    ) {
-      setIsSending(false);
-      throw new Error("Cannot write WiFi configuration");
-    }
-    if (
-      !(await bleService.write(
-        peripheral,
-        bleService.serviceUUID,
-        bleService.Characteristics.plantIdUUID,
-        `{"plantID": "${cloudData.plantID}"}`
-      ))
-    ) {
-      setIsSending(false);
-      throw new Error("Cannot write Plant configuration");
-    }
-    if (
-      !(await bleService.write(
-        peripheral,
-        bleService.serviceUUID,
-        bleService.Characteristics.rebootUUID,
-        `1`
+        bleService.Characteristics.setupUUID,
+        JSON.stringify(license)
       ))
     ) {
       setIsSending(false);
@@ -104,6 +40,13 @@ export default () => {
     }
     await bleService.disconnect(peripheral);
     setIsSending(false);
+
+    let devices = contextData.cloudData.filter((obj) => {
+      return obj !== license;
+    });
+    setContextData({ cloudData: devices });
+    setLicense(undefined);
+
     Alert.alert(
       "IRIS",
       "Configuration success!\nNow wait while device is rebooting.",
@@ -112,13 +55,12 @@ export default () => {
   };
 
   return {
-    wifiPermissions,
-    ssid,
-    cloudData,
+    contextData,
     style,
+    theme,
     isSending,
-    code,
-    setCode,
+    license,
+    setLicense,
     sendToIris,
   };
 };

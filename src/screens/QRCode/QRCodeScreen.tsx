@@ -8,14 +8,23 @@ import PrimaryButton from "~components/Buttons/PrimaryButton";
 import Spinner from "~components/Spinner";
 import useQRCodeScreenHooks from "./useQRCodeScreenHooks";
 import qr from "assets/images/qr_bg.png";
+import LicenseCounter from "~components/LicenseViewer/LicenseCounter";
 
 type QRProps = NativeStackScreenProps<RootStackParamList, "QR">;
 
 export default function QRCoderScreen({ navigation }: QRProps) {
-  const { style, isFocused, isSending, code, setCode, sendToCloud } =
-    useQRCodeScreenHooks();
+  const {
+    style,
+    isFocused,
+    isSending,
+    contextData,
+    code,
+    setCode,
+    sendToCloud,
+  } = useQRCodeScreenHooks();
   return (
     <View style={style.safeContainer}>
+      <LicenseCounter />
       <Image source={qr} style={style.background} tintColor={"#0000aa22"} />
       <KeyboardAvoidingView style={style.container} behavior="position" enabled>
         <Text style={style.title}>Scan QR code</Text>
@@ -32,13 +41,21 @@ export default function QRCoderScreen({ navigation }: QRProps) {
         />
         <PrimaryButton
           style={style.sendButton}
-          title="Send"
+          title="Register serial number"
           disabled={code === undefined || code.length === 0}
           onPress={() => {
-            sendToCloud(navigation);
+            if (code != null) sendToCloud(code, navigation);
           }}
         />
-        <Spinner visible={isSending} textContent={"Sending..."} />
+        <PrimaryButton
+          style={style.nextButton}
+          disabled={contextData.cloudData.length === 0}
+          title="Go to Configure screen"
+          onPress={() => {
+            navigation.navigate("BLE");
+          }}
+        />
+        <Spinner visible={isSending} textContent={"Registering..."} />
       </KeyboardAvoidingView>
     </View>
   );

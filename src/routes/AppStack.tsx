@@ -16,11 +16,11 @@ export const AppStack = () => {
   }, []);
 
   return (
-    <Stack.Navigator initialRouteName="BLE">
+    <Stack.Navigator initialRouteName="QR">
       <Stack.Group>
         <Stack.Screen
           options={{
-            headerShown: false,
+            headerShown: true,
             headerTintColor: theme.colors.headerTint,
             headerStyle: { backgroundColor: theme.colors.headerBackground },
           }}

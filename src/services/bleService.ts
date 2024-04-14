@@ -5,11 +5,7 @@ import { PermissionsAndroid, Platform } from "react-native";
 const serviceUUID = "8888";
 
 enum Characteristics {
-  wifiUUID = "8888",
-  macAddressUUID = "8889",
-  publicKeyUUID = "8890",
-  plantIdUUID = "8891",
-  rebootUUID = "8892",
+  setupUUID = "8888",
 }
 
 const dummyPeripheral: Peripheral = {

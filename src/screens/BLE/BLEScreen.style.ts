@@ -14,15 +14,16 @@ const styles = (theme: ThemeContextData) => {
     box: {
       flex: 1,
       alignItems: "stretch",
-      justifyContent: "center",
+      justifyContent: "flex-start",
       zIndex: 1,
     },
     title: {
       color: theme.colors.primary,
       fontFamily: theme.typography.family.bold,
-      fontSize: theme.typography.size.huge,
+      fontSize: theme.typography.size.medium,
       alignSelf: "center",
       margin: 20,
+      marginTop: 50,
     },
     description: {
       color: theme.colors.primary,

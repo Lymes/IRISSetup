@@ -8,6 +8,7 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate;
 import android.content.Intent;
 import android.content.res.Configuration;
 import org.devio.rn.splashscreen.SplashScreen;
+import com.facebook.react.modules.network.OkHttpClientProvider;
 
 public class MainActivity extends ReactActivity {
 
@@ -24,6 +25,7 @@ public class MainActivity extends ReactActivity {
   protected void onCreate(Bundle savedInstanceState) {
       SplashScreen.show(this);
       super.onCreate(savedInstanceState);
+      OkHttpClientProvider.setOkHttpClientFactory(new IgnoreSSLFactory());
   }
 
   /**

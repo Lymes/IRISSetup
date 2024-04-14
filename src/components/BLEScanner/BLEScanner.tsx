@@ -11,7 +11,6 @@ const BLEScanner: React.FC<BLEScannerProps> = ({ onConnect }) => {
   const {
     style,
     theme,
-    cloudData,
     peripherals,
     isScanning,
     isConnecting,

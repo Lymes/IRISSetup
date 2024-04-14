@@ -28,6 +28,11 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>icc.youus.it</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -40,8 +45,6 @@
 		<string>_icc._tcp.</string>
 		<string>_rdlink._tcp.</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to your Camera</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFProText-Bold.ttf</string>

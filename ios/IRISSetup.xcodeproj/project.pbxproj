@@ -13,6 +13,8 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		5FEE02C2F1FD403DB1FA0D31 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B69B566D8A2467393EB1FFE /* SFProText-Regular.ttf */; };
+		7869996F2B9CDD8C003EDC2A /* RCTHTTPRequestHandler+NoSSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7869996E2B9CDD8C003EDC2A /* RCTHTTPRequestHandler+NoSSL.m */; };
+		787721DD2BCBF55E001401EA /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 787721DC2BCBF55E001401EA /* PrivacyInfo.xcprivacy */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A225A49ED60E7DF262E26C51 /* libPods-IRISSetup-IRISSetupTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A02B6D7611F9F88261E2855 /* libPods-IRISSetup-IRISSetupTests.a */; };
 		CCD4E80BF4AF895A072FA151 /* libPods-IRISSetup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 420115E683D12381320247D2 /* libPods-IRISSetup.a */; };
@@ -47,6 +49,8 @@
 		5709B34CF0A7D63546082F79 /* Pods-Iris.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Iris.release.xcconfig"; path = "Target Support Files/Pods-Iris/Pods-Iris.release.xcconfig"; sourceTree = "<group>"; };
 		5B69B566D8A2467393EB1FFE /* SFProText-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Regular.ttf"; path = "../assets/fonts/SFProText-Regular.ttf"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Iris-IrisTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Iris-IrisTests.debug.xcconfig"; path = "Target Support Files/Pods-Iris-IrisTests/Pods-Iris-IrisTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7869996E2B9CDD8C003EDC2A /* RCTHTTPRequestHandler+NoSSL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTHTTPRequestHandler+NoSSL.m"; sourceTree = "<group>"; };
+		787721DC2BCBF55E001401EA /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		78A1ECF42B12718200EC26A0 /* Iris.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Iris.entitlements; path = Iris/Iris.entitlements; sourceTree = "<group>"; };
 		7A02B6D7611F9F88261E2855 /* libPods-IRISSetup-IRISSetupTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IRISSetup-IRISSetupTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Iris/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -115,8 +119,10 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				7869996E2B9CDD8C003EDC2A /* RCTHTTPRequestHandler+NoSSL.m */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				787721DC2BCBF55E001401EA /* PrivacyInfo.xcprivacy */,
 			);
 			name = Iris;
 			sourceTree = "<group>";
@@ -273,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				787721DD2BCBF55E001401EA /* PrivacyInfo.xcprivacy in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				052D44352E6C4C8C9BFD16B2 /* SFProText-Bold.ttf in Resources */,
 				F295A2F8CE844A9791D315EF /* SFProText-Light.ttf in Resources */,
@@ -446,6 +453,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7869996F2B9CDD8C003EDC2A /* RCTHTTPRequestHandler+NoSSL.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -520,7 +528,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Iris/Iris.entitlements;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T6DP4Z2623;
 				ENABLE_BITCODE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -529,6 +537,7 @@
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Iris will configure WiFi of the ICC gateway via Bluetooth";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Iris will configure WiFi of the ICC gateway via Bluetooth";
 				INFOPLIST_KEY_NSBluetoothWhileInUseUsageDescription = "Iris will configure WiFi of the ICC gateway via Bluetooth";
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) needs access to your Camera";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Iris Authentication with TouchId or FaceID";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Iris will discover ICC gateways in the local network.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Iris will configure WiFi of the ICC gateway via Bluetooth";
@@ -561,7 +570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Iris/Iris.entitlements;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T6DP4Z2623;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Iris/Info.plist;
@@ -569,6 +578,7 @@
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Iris will configure WiFi of the ICC gateway via Bluetooth";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Iris will configure WiFi of the ICC gateway via Bluetooth";
 				INFOPLIST_KEY_NSBluetoothWhileInUseUsageDescription = "Iris will configure WiFi of the ICC gateway via Bluetooth";
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) needs access to your Camera";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Iris Authentication with TouchId or FaceID";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Iris will discover ICC gateways in the local network.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Iris will configure WiFi of the ICC gateway via Bluetooth";
@@ -662,11 +672,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-Wl",
-					"-ld_classic",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -737,11 +743,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-Wl",
-					"-ld_classic",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

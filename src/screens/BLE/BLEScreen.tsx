@@ -8,6 +8,7 @@ import BLEScanner from "~components/BLEScanner/BLEScanner";
 import { useAppContext } from "~hooks/useAppContext";
 import PrimaryButton from "~components/Buttons/PrimaryButton";
 import ble from "assets/images/ble_bg.png";
+import LicenseCounter from "~components/LicenseViewer/LicenseCounter";
 
 type LoginProps = NativeStackScreenProps<RootStackParamList, "BLE">;
 
@@ -21,8 +22,9 @@ export default function BLEScreen({ navigation }: LoginProps) {
         style={style.background}
         tintColor={"#0000aa22"}
       >
+        <LicenseCounter />
         <View style={style.box}>
-          <Text style={style.title}>IRIS</Text>
+          <Text style={style.title}>Select IRIS</Text>
           <Text style={style.description} numberOfLines={2}>
             {blePermissionsGranted
               ? "Scan and select IRIS device to connect"
@@ -31,7 +33,7 @@ export default function BLEScreen({ navigation }: LoginProps) {
           {blePermissionsGranted ? (
             <BLEScanner
               onConnect={() => {
-                navigation.navigate("QR");
+                navigation.navigate("Setup");
               }}
             />
           ) : (

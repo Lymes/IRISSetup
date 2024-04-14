@@ -2,15 +2,15 @@
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode", /// TSX auto format on save Prettier
         "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": { /// TS auto format on save ESLint
-          "source.fixAll.eslint": true
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
         }
     },
     "[typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode", /// TSX auto format on save Prettier
         "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": { /// TSX auto format on save ESLint
-          "source.fixAll.eslint": true
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
         }
       },
       "vscode-color-picker.languages": [

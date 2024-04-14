@@ -2,30 +2,30 @@ import React from "react";
 import {
   Text,
   Keyboard,
-  Linking,
   ImageBackground,
   View,
   Alert,
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "~navigation/RootStackPrams";
 import useSetupScreenHooks from "./useSetupScreenHooks";
-import InputText from "~components/Inputs/InputText";
 import PrimaryButton from "~components/Buttons/PrimaryButton";
 import dsgw from "assets/images/dsgw_bg2.png";
 import Spinner from "~components/Spinner";
+import LicenseCounter from "~components/LicenseViewer/LicenseCounter";
 
 type SetupProps = NativeStackScreenProps<RootStackParamList, "Setup">;
 
 export default function SetupScreen({ navigation }: SetupProps) {
   const {
-    wifiPermissions,
-    ssid,
-    cloudData,
+    contextData,
     style,
+    theme,
     isSending,
-    code,
-    setCode,
+    license,
+    setLicense,
     sendToIris,
   } = useSetupScreenHooks();
 
@@ -36,57 +36,53 @@ export default function SetupScreen({ navigation }: SetupProps) {
         style={style.background}
         imageStyle={{ opacity: 0.4 }}
       >
+        <LicenseCounter />
         <View style={style.container}>
-          <Text style={style.title}>IRIS setup recap:</Text>
-          <View style={style.valueRow}>
-            <Text style={style.ssidLabel}>Plant ID:</Text>
-            <Text style={style.ssidValue}>
-              {cloudData.plantID || "not found"}
-            </Text>
+          <Text style={style.title}>Select IRIS license:</Text>
+          <View style={style.logContainer}>
+            <FlatList
+              data={contextData.cloudData}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    setLicense(item);
+                  }}
+                >
+                  <Text
+                    numberOfLines={1}
+                    style={[
+                      style.logText,
+                      license === item
+                        ? {
+                            backgroundColor: theme.colors.primaryBackground,
+                            color: theme.colors.background,
+                          }
+                        : {
+                            backgroundColor: "transparent",
+                            color: theme.colors.primary,
+                          },
+                    ]}
+                  >
+                    {item.plantId || item.serialNumber}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
           </View>
-          <View style={style.valueRow}>
-            <Text style={style.ssidLabel}>WiFi SSID:</Text>
-            <Text style={style.ssidValue}>{ssid || "not found"}</Text>
-          </View>
-          {wifiPermissions === "granted" ? (
-            <>
-              <InputText
-                value={code}
-                style={style.credentialsInput}
-                placeholder="WiFi password"
-                placeholderTextColor="grey"
-                secureTextEntry={true}
-                onChangeText={setCode}
-              />
-              <PrimaryButton
-                style={style.sendButton}
-                title="Send to IRIS"
-                disabled={code === undefined || code.length < 8}
-                onPress={async () => {
-                  try {
-                    Keyboard.dismiss();
-                    await sendToIris();
-                  } catch (error) {
-                    Alert.alert("IRIS", `${error}`, [{ text: "OK" }]);
-                  }
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <Text style={style.description} numberOfLines={4}>
-                Location permissions needed in order to get WiFi SSID. Please
-                allow Location and re-lauch app
-              </Text>
-              <PrimaryButton
-                style={style.sendButton}
-                title="Settings"
-                onPress={() => {
-                  Linking.openSettings();
-                }}
-              />
-            </>
-          )}
+
+          <PrimaryButton
+            style={style.sendButton}
+            title="Send to IRIS"
+            disabled={license === undefined}
+            onPress={async () => {
+              try {
+                Keyboard.dismiss();
+                await sendToIris();
+              } catch (error) {
+                Alert.alert("IRIS", `${error}`, [{ text: "OK" }]);
+              }
+            }}
+          />
         </View>
       </ImageBackground>
       <Spinner visible={isSending} textContent={"Sending..."} />

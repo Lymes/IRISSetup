@@ -1,25 +1,35 @@
 export type CloudData = {
-  macAddress?: string;
-  publicKey?: string;
-  qrCode?: string;
-  plantID?: string;
+  plantId?: string;
+  username?: string;
+  password?: string;
+  serialNumber?: string;
+};
+
+export type CloudError = {
+  status: string;
+  message: string;
+  code: number;
 };
 
 type CloudResponse = {
-  plantID: string;
+  errorMessage?: CloudError;
+  payload?: CloudData;
 };
 
-const getPlantID = (macAddress: string, publicKey: string, qrCode: string) => {
-  return fetch("https://run.mocky.io/v3/11ad91cc-2ae1-4881-9607-8ee73b63f1a4", {
+const lockLicense = (serialNumber: string) => {
+  return fetch("https://icc.youus.it:8447/iccapi/devices/locklicense", {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      macAddress: macAddress,
-      publicKey: publicKey,
-      qrCode: qrCode,
+      serialNumber: serialNumber,
+      plantName: "Test Plant",
+      plantLocation: "ITALY",
+      latitude: 1.5,
+      longitude: 1.6,
+      email: "m.tarquini@gmail.com",
     }),
   })
     .then((response) => {
@@ -36,4 +46,4 @@ const getPlantID = (macAddress: string, publicKey: string, qrCode: string) => {
     });
 };
 
-export const cloudService = { getPlantID };
+export const cloudService = { lockLicense };

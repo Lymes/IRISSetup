@@ -23,8 +23,7 @@ const styles = (theme: ThemeContextData) => {
     container: {
       flex: 1,
       alignItems: "stretch",
-      // justifyContent: "flex-end",
-      justifyContent: "center",
+      justifyContent: "flex-start",
       zIndex: 1,
     },
     title: {
@@ -33,6 +32,7 @@ const styles = (theme: ThemeContextData) => {
       fontSize: theme.typography.size.medium,
       alignSelf: "center",
       margin: 20,
+      marginTop: 50,
     },
     description: {
       color: theme.colors.primary,
@@ -53,6 +53,17 @@ const styles = (theme: ThemeContextData) => {
       borderColor: theme.colors.borderColor,
     },
     sendButton: {
+      alignSelf: "center",
+      backgroundColor: theme.colors.primaryBackground,
+      color: theme.colors.primaryForeground,
+      borderRadius: 8,
+      fontFamily: theme.typography.family.regular,
+      fontSize: theme.typography.size.small,
+      width: "80%",
+      height: 40,
+      marginTop: 20,
+    },
+    nextButton: {
       alignSelf: "center",
       backgroundColor: theme.colors.primaryBackground,
       color: theme.colors.primaryForeground,
