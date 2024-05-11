@@ -3,9 +3,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import BLEScreen from "~screens/BLE/BLEScreen";
 import { RootStackParamList } from "~navigation/RootStackPrams";
 import useTheme from "~hooks/useTheme";
+import HomeScreen from "~screens/Home/HomeScreen";
 import QRCoderScreen from "~screens/QRCode/QRCodeScreen";
+import MonitoringScreen from "~screens/Monitoring/MonitoringScreen";
+import NetworkConfigScreen from "~screens/NetworkConfig/NetworkConfigScreen";
 import SetupScreen from "~screens/Setup/SetupScreen";
 import Orientation from "react-native-orientation-locker";
+import IfaceConfigScreen from "~screens/IfaceConfig/IfaceConfigScreen";
+import { Button } from "react-native";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -16,10 +21,56 @@ export const AppStack = () => {
   }, []);
 
   return (
-    <Stack.Navigator initialRouteName="QR">
+    <Stack.Navigator initialRouteName="NetworkConfig">
       <Stack.Group>
         <Stack.Screen
           options={{
+            headerShown: false,
+            headerTintColor: theme.colors.headerTint,
+            headerStyle: { backgroundColor: theme.colors.headerBackground },
+          }}
+          name="Home"
+          component={HomeScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            headerTintColor: theme.colors.headerTint,
+            headerStyle: { backgroundColor: theme.colors.headerBackground },
+          }}
+          name="Monitoring"
+          component={MonitoringScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: "Network",
+            headerShown: true,
+            headerTintColor: theme.colors.headerTint,
+            headerStyle: { backgroundColor: theme.colors.headerBackground },
+          }}
+          name="NetworkConfig"
+          component={NetworkConfigScreen}
+        />
+        <Stack.Screen
+          options={({ route }) => ({
+            title: route.params.iface,
+            headerShown: true,
+            headerTintColor: theme.colors.headerTint,
+            headerStyle: { backgroundColor: theme.colors.headerBackground },
+            headerRight: () => (
+              <Button
+                onPress={() => {}}
+                title="Apply"
+                color={theme.colors.headerTint}
+              />
+            ),
+          })}
+          name="IfaceConfig"
+          component={IfaceConfigScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: "Bluetooth",
             headerShown: true,
             headerTintColor: theme.colors.headerTint,
             headerStyle: { backgroundColor: theme.colors.headerBackground },

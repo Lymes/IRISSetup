@@ -4,15 +4,22 @@ import { ThemeContextData } from "~themes/ThemeProvider";
 const styles = (theme: ThemeContextData) => {
   return StyleSheet.create({
     Container: {
-      position: "absolute",
-      top: 0,
-      left: 0,
       width: "100%",
-      height: 30,
-      backgroundColor: "#8cd3f6",
-      flex: 1,
       alignItems: "center",
       justifyContent: "center",
+      rowGap: 20,
+    },
+    group: {
+      width: "80%",
+      rowGap: 5,
+    },
+    maskedInput: {
+      borderWidth: 0.5,
+      borderRadius: 4,
+      width: "80%",
+      padding: 12,
+      color: "black",
+      fontSize: 20,
     },
     label: {
       fontFamily: theme.typography.family.regular,

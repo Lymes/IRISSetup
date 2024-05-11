@@ -15,6 +15,7 @@
 		5FEE02C2F1FD403DB1FA0D31 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B69B566D8A2467393EB1FFE /* SFProText-Regular.ttf */; };
 		7869996F2B9CDD8C003EDC2A /* RCTHTTPRequestHandler+NoSSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7869996E2B9CDD8C003EDC2A /* RCTHTTPRequestHandler+NoSSL.m */; };
 		787721DD2BCBF55E001401EA /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 787721DC2BCBF55E001401EA /* PrivacyInfo.xcprivacy */; };
+		789C5BF32BEDF1FC00F3C63B /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 789C5BF22BEDF1FC00F3C63B /* FontAwesome.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A225A49ED60E7DF262E26C51 /* libPods-IRISSetup-IRISSetupTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A02B6D7611F9F88261E2855 /* libPods-IRISSetup-IRISSetupTests.a */; };
 		CCD4E80BF4AF895A072FA151 /* libPods-IRISSetup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 420115E683D12381320247D2 /* libPods-IRISSetup.a */; };
@@ -51,6 +52,7 @@
 		5B7EB9410499542E8C5724F5 /* Pods-Iris-IrisTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Iris-IrisTests.debug.xcconfig"; path = "Target Support Files/Pods-Iris-IrisTests/Pods-Iris-IrisTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7869996E2B9CDD8C003EDC2A /* RCTHTTPRequestHandler+NoSSL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTHTTPRequestHandler+NoSSL.m"; sourceTree = "<group>"; };
 		787721DC2BCBF55E001401EA /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		789C5BF22BEDF1FC00F3C63B /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = ../assets/fonts/FontAwesome.ttf; sourceTree = "<group>"; };
 		78A1ECF42B12718200EC26A0 /* Iris.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Iris.entitlements; path = Iris/Iris.entitlements; sourceTree = "<group>"; };
 		7A02B6D7611F9F88261E2855 /* libPods-IRISSetup-IRISSetupTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IRISSetup-IRISSetupTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Iris/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		00C4289CB9E3470EB2740934 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				789C5BF22BEDF1FC00F3C63B /* FontAwesome.ttf */,
 				8F7B372A608646C9B2EA5E51 /* SFProText-Bold.ttf */,
 				4387DA06A0E64D4D85E2E6DE /* SFProText-Light.ttf */,
 				ED644BF0C95C4AC38B2F020A /* SFProText-Medium.ttf */,
@@ -278,6 +281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				789C5BF32BEDF1FC00F3C63B /* FontAwesome.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				787721DD2BCBF55E001401EA /* PrivacyInfo.xcprivacy in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,

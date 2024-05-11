@@ -1,7 +1,7 @@
 import React from "react";
 import { KeyboardAvoidingView, Text, View, Image } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "~navigation/RootStackPrams";
+import { FromScreen, RootStackParamList } from "~navigation/RootStackPrams";
 import QRScanner from "~components/QRScanner/QRScanner";
 import InputText from "~components/Inputs/InputText";
 import PrimaryButton from "~components/Buttons/PrimaryButton";
@@ -52,7 +52,7 @@ export default function QRCoderScreen({ navigation }: QRProps) {
           disabled={contextData.cloudData.length === 0}
           title="Go to Configure screen"
           onPress={() => {
-            navigation.navigate("BLE");
+            navigation.navigate("BLE", { from: FromScreen.QR });
           }}
         />
         <Spinner visible={isSending} textContent={"Registering..."} />

@@ -1,14 +1,13 @@
-import PrimaryButton from "~components/Buttons/PrimaryButton";
 import useLicenseCounterHooks from "./useLicenseCounterHooks";
+import { Text, View } from "react-native";
 
 const LicenseCounter = () => {
   const { style, contextData } = useLicenseCounterHooks();
 
   return (
-    <PrimaryButton
-      style={style.Container}
-      title={"Locked licenses: " + contextData.cloudData.length}
-    ></PrimaryButton>
+    <View style={style.Container}>
+      <Text>{"Locked licenses: " + contextData.cloudData.length}</Text>
+    </View>
   );
 };
 
