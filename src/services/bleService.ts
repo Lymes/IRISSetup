@@ -15,6 +15,10 @@ const dummyPeripheral: Peripheral = {
   advertising: {},
 };
 
+const isDummyPeripheral = (peripheral: Peripheral): boolean => {
+  return peripheral.id === dummyPeripheral.id;
+};
+
 const init = (): Promise<boolean> => {
   return new Promise((resolve) => {
     BleManager.start({ showAlert: false })
@@ -268,4 +272,5 @@ export const bleService = {
   read,
   subscribe,
   handleAndroidPermissions,
+  isDummyPeripheral,
 };

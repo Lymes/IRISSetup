@@ -22,8 +22,6 @@ const styles = (theme: ThemeContextData) => {
     },
     container: {
       flex: 1,
-      alignItems: "stretch",
-      justifyContent: "flex-start",
       zIndex: 1,
     },
     title: {

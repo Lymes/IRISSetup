@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, Keyboard, StyleSheet } from "react-native";
 import { ThemeContextData } from "~themes/ThemeProvider";
 
 const styles = (theme: ThemeContextData) => {
@@ -20,17 +20,36 @@ const styles = (theme: ThemeContextData) => {
       height: windowHeight,
       zIndex: 0,
     },
+    keyboardView: {
+      alignSelf: "flex-start",
+      width: "100%",
+    },
     container: {
+      marginTop: 50,
+      alignSelf: "center",
       width: "80%",
       alignItems: "flex-start",
-      justifyContent: "flex-start",
-      // alignItems: "center",
-      // justifyContent: "center",
+      justifyContent: "center",
       rowGap: 10,
       zIndex: 1,
     },
     ipSettings: {
       marginTop: 20,
+    },
+    group: {
+      width: "100%",
+      rowGap: 5,
+    },
+    maskedInput: {
+      borderWidth: 0.5,
+      borderRadius: 4,
+      padding: 12,
+      color: "black",
+      fontSize: 20,
+    },
+    label: {
+      fontFamily: theme.typography.family.regular,
+      fontSize: theme.typography.size.small,
     },
     title: {
       marginTop: 100,

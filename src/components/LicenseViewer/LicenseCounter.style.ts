@@ -13,6 +13,7 @@ const styles = (theme: ThemeContextData) => {
       flex: 1,
       alignItems: "center",
       justifyContent: "center",
+      zIndex: 100,
     },
     label: {
       fontFamily: theme.typography.family.regular,

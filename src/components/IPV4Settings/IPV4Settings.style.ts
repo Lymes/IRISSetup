@@ -16,7 +16,6 @@ const styles = (theme: ThemeContextData) => {
     maskedInput: {
       borderWidth: 0.5,
       borderRadius: 4,
-      width: "80%",
       padding: 12,
       color: "black",
       fontSize: 20,

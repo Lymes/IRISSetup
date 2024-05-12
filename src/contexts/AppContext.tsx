@@ -13,6 +13,13 @@ export type AppContextData = {
   setPeripheral(peripheral?: Peripheral): void;
 };
 
+const testLicense: CloudData = {
+  plantId: "TestLicense",
+  username: "",
+  password: "",
+  serialNumber: "",
+};
+
 type AppContextPersistedData = {
   cloudData: CloudData[];
 };
@@ -27,7 +34,7 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
   // Using usePersist hook with initial values and persist key
   const [contextData, setContextData, clear] =
     usePersist<AppContextPersistedData>("appContext", {
-      cloudData: [],
+      cloudData: [testLicense],
     });
 
   const [bleStarted, setBLEStarted] = useState(false);

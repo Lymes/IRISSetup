@@ -1,5 +1,5 @@
 import React from "react";
-import { KeyboardAvoidingView, Text, View, Image } from "react-native";
+import { Text, View, Image } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FromScreen, RootStackParamList } from "~navigation/RootStackPrams";
 import QRScanner from "~components/QRScanner/QRScanner";
@@ -9,6 +9,7 @@ import Spinner from "~components/Spinner";
 import useQRCodeScreenHooks from "./useQRCodeScreenHooks";
 import qr from "assets/images/qr_bg.png";
 import LicenseCounter from "~components/LicenseViewer/LicenseCounter";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type QRProps = NativeStackScreenProps<RootStackParamList, "QR">;
 
@@ -26,7 +27,12 @@ export default function QRCoderScreen({ navigation }: QRProps) {
     <View style={style.safeContainer}>
       <LicenseCounter />
       <Image source={qr} style={style.background} tintColor={"#0000aa22"} />
-      <KeyboardAvoidingView style={style.container} behavior="position" enabled>
+      <KeyboardAwareScrollView
+        style={style.container}
+        enableOnAndroid={true}
+        extraScrollHeight={200}
+        extraHeight={40}
+      >
         <Text style={style.title}>Scan QR code</Text>
         <QRScanner isActive={isFocused} onFound={setCode} />
         <Text style={style.description}>or manually insert device code</Text>
@@ -56,7 +62,7 @@ export default function QRCoderScreen({ navigation }: QRProps) {
           }}
         />
         <Spinner visible={isSending} textContent={"Registering..."} />
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }

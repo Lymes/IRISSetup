@@ -41,10 +41,12 @@ export default () => {
     await bleService.disconnect(peripheral);
     setIsSending(false);
 
-    let devices = contextData.cloudData.filter((obj) => {
-      return obj !== license;
-    });
-    setContextData({ cloudData: devices });
+    if (!bleService.isDummyPeripheral(peripheral)) {
+      let devices = contextData.cloudData.filter((obj) => {
+        return obj !== license;
+      });
+      setContextData({ cloudData: devices });
+    }
     setLicense(undefined);
 
     Alert.alert(

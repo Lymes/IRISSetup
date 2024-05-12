@@ -21,7 +21,8 @@ export const AppStack = () => {
   }, []);
 
   return (
-    <Stack.Navigator initialRouteName="NetworkConfig">
+    //<Stack.Navigator initialRouteName="NetworkConfig">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Group>
         <Stack.Screen
           options={{
@@ -57,13 +58,7 @@ export const AppStack = () => {
             headerShown: true,
             headerTintColor: theme.colors.headerTint,
             headerStyle: { backgroundColor: theme.colors.headerBackground },
-            headerRight: () => (
-              <Button
-                onPress={() => {}}
-                title="Apply"
-                color={theme.colors.headerTint}
-              />
-            ),
+            headerRight: () => <Button title="Apply" />,
           })}
           name="IfaceConfig"
           component={IfaceConfigScreen}
