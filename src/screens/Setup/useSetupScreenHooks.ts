@@ -45,7 +45,10 @@ export default () => {
       let devices = contextData.cloudData.filter((obj) => {
         return obj !== license;
       });
-      setContextData({ cloudData: devices });
+      setContextData({
+        cloudData: devices,
+        networkConfig: contextData.networkConfig,
+      });
     }
     setLicense(undefined);
 

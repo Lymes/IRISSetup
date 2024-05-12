@@ -1,11 +1,13 @@
 import BleManager, { Peripheral } from "react-native-ble-manager";
 import { stringToBytes, bytesToString } from "convert-string";
 import { PermissionsAndroid, Platform } from "react-native";
+import { dummyNet } from "~contexts/NetworkConfig";
 
 const serviceUUID = "8888";
 
 enum Characteristics {
   setupUUID = "8888",
+  networkUUID = "8889",
 }
 
 const dummyPeripheral: Peripheral = {
@@ -165,7 +167,9 @@ const read = (
 ): Promise<string | undefined> => {
   return new Promise((resolve) => {
     if (peripheral.id === dummyPeripheral.id) {
-      resolve("payload");
+      setTimeout(() => {
+        resolve(JSON.stringify(dummyNet));
+      }, 200);
       return;
     }
     BleManager.read(peripheral.id, serviceUUID, characteristicUUID)

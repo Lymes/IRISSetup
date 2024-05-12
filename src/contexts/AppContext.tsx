@@ -3,6 +3,7 @@ import { CloudData } from "~services/cloudService";
 import { bleService } from "~services/bleService";
 import { Peripheral } from "react-native-ble-manager";
 import usePersist from "react-native-persist-context";
+import { dummyNet, NetworkConfig } from "./NetworkConfig";
 
 export type AppContextData = {
   contextData: AppContextPersistedData;
@@ -22,6 +23,7 @@ const testLicense: CloudData = {
 
 type AppContextPersistedData = {
   cloudData: CloudData[];
+  networkConfig: NetworkConfig;
 };
 
 const AppContext = createContext<AppContextData>({} as AppContextData);
@@ -35,6 +37,7 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
   const [contextData, setContextData, clear] =
     usePersist<AppContextPersistedData>("appContext", {
       cloudData: [testLicense],
+      networkConfig: dummyNet,
     });
 
   const [bleStarted, setBLEStarted] = useState(false);

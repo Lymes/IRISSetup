@@ -20,11 +20,12 @@ const styles = (theme: ThemeContextData) => {
       height: windowHeight,
       zIndex: 0,
     },
+    scrolledArea: {},
     container: {
       flex: 1,
       alignItems: "stretch",
       justifyContent: "flex-start",
-      rowGap: 10,
+      rowGap: 40,
       zIndex: 1,
       paddingTop: 100,
     },
@@ -45,6 +46,7 @@ const styles = (theme: ThemeContextData) => {
       fontSize: theme.typography.size.small,
       width: "80%",
       height: 50,
+      marginTop: 50,
     },
   });
 };

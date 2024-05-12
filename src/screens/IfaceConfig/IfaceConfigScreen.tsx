@@ -13,14 +13,9 @@ type IfaceConfigProps = NativeStackScreenProps<
   "IfaceConfig"
 >;
 
-export default function IfaceConfigScreen({
-  navigation,
-  route,
-}: IfaceConfigProps) {
+export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
   const { style, lanOptions, pppOptions, selectedId, setSelectedId } =
     useIfaceConfigScreenHooks();
-
-  console.log(route.params);
 
   return (
     <View style={style.safeContainer}>

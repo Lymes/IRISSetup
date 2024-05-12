@@ -2,7 +2,6 @@ import useThemedStyles from "~hooks/useThemedStyles";
 import { styles } from "./IfaceConfigScreen.style";
 import { useEffect, useMemo, useState } from "react";
 import { Button, Platform } from "react-native";
-import style from "~components/Spinner/style";
 import { useNavigation } from "@react-navigation/native";
 
 export default () => {
@@ -57,7 +56,9 @@ export default () => {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          onPress={() => {}}
+          onPress={() => {
+            navigation.goBack();
+          }}
           title="Apply"
           color={Platform.OS === "ios" ? "#fff" : "blank"}
         />
