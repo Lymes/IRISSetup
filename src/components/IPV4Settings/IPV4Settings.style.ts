@@ -7,10 +7,10 @@ const styles = (theme: ThemeContextData) => {
       width: "100%",
       alignItems: "center",
       justifyContent: "center",
-      rowGap: 20,
+      rowGap: 10,
     },
     group: {
-      width: "80%",
+      width: "100%",
       rowGap: 5,
     },
     maskedInput: {
@@ -18,7 +18,8 @@ const styles = (theme: ThemeContextData) => {
       borderRadius: 4,
       padding: 12,
       color: "black",
-      fontSize: 20,
+      fontFamily: theme.typography.family.regular,
+      fontSize: theme.typography.size.small,
     },
     label: {
       fontFamily: theme.typography.family.regular,

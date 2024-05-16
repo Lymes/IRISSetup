@@ -7,6 +7,7 @@ import RadioGroup from "react-native-radio-buttons-group";
 import React from "react";
 import TextInputMask from "react-native-text-input-mask";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { IfaceMode, nbIoTMode } from "~contexts/NetworkConfig";
 
 type IfaceConfigProps = NativeStackScreenProps<
   RootStackParamList,
@@ -14,7 +15,7 @@ type IfaceConfigProps = NativeStackScreenProps<
 >;
 
 export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
-  const { style, lanOptions, pppOptions, selectedId, setSelectedId } =
+  const { style, selectedId, setSelectedId, contextData, getStates } =
     useIfaceConfigScreenHooks();
 
   return (
@@ -27,14 +28,12 @@ export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
       >
         <RadioGroup
           containerStyle={style.container}
-          radioButtons={
-            route.params.iface === NetIface.PPP ? pppOptions : lanOptions
-          }
+          radioButtons={getStates(route.params.iface)}
           onPress={setSelectedId}
           selectedId={selectedId}
         />
-        {route.params.iface === NetIface.PPP && selectedId != "0" && (
-          <View style={style.container}>
+        <View style={style.settings}>
+          {route.params.iface === NetIface.PPP && selectedId != "OFF" && (
             <View style={style.group}>
               <Text style={style.label}>APN</Text>
               <TextInputMask
@@ -44,35 +43,34 @@ export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
                 onChangeText={(formatted, extracted) => {}}
               />
             </View>
-          </View>
-        )}
+          )}
 
-        {route.params.iface === NetIface.WLAN && selectedId != "0" && (
-          <View style={style.container}>
-            <View style={style.group}>
-              <Text style={style.label}>SSID</Text>
-              <TextInputMask
-                placeholder="MyHomeNetwork"
-                placeholderTextColor="grey"
-                style={style.maskedInput}
-                onChangeText={(formatted, extracted) => {}}
-              />
-            </View>
-            <View style={style.group}>
-              <Text style={style.label}>Password</Text>
-              <TextInputMask
-                placeholder="MyPassword"
-                placeholderTextColor="grey"
-                style={style.maskedInput}
-                onChangeText={(formatted, extracted) => {}}
-              />
-            </View>
-          </View>
-        )}
-
-        {route.params.iface != NetIface.PPP && selectedId === "2" && (
-          <IPV4Settings style={style.ipSettings}></IPV4Settings>
-        )}
+          {route.params.iface === NetIface.WLAN && selectedId != "OFF" && (
+            <>
+              <View style={style.group}>
+                <Text style={style.label}>SSID</Text>
+                <TextInputMask
+                  placeholder="MyHomeNetwork"
+                  placeholderTextColor="grey"
+                  style={style.maskedInput}
+                  onChangeText={(formatted, extracted) => {}}
+                />
+              </View>
+              <View style={style.group}>
+                <Text style={style.label}>Password</Text>
+                <TextInputMask
+                  placeholder="MyPassword"
+                  placeholderTextColor="grey"
+                  style={style.maskedInput}
+                  onChangeText={(formatted, extracted) => {}}
+                />
+              </View>
+            </>
+          )}
+          {route.params.iface != NetIface.PPP && selectedId === "2" && (
+            <IPV4Settings></IPV4Settings>
+          )}
+        </View>
       </KeyboardAwareScrollView>
     </View>
   );

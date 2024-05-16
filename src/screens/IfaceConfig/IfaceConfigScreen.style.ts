@@ -30,10 +30,14 @@ const styles = (theme: ThemeContextData) => {
       width: "80%",
       alignItems: "flex-start",
       justifyContent: "center",
-      rowGap: 10,
       zIndex: 1,
     },
-    ipSettings: {
+    settings: {
+      alignSelf: "center",
+      alignItems: "flex-start",
+      justifyContent: "center",
+      width: "80%",
+      rowGap: 10,
       marginTop: 20,
     },
     group: {
@@ -45,7 +49,7 @@ const styles = (theme: ThemeContextData) => {
       borderRadius: 4,
       padding: 12,
       color: "black",
-      fontSize: 20,
+      fontSize: theme.typography.size.small,
     },
     label: {
       fontFamily: theme.typography.family.regular,

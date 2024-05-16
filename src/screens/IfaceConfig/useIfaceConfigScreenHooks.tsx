@@ -3,53 +3,25 @@ import { styles } from "./IfaceConfigScreen.style";
 import { useEffect, useMemo, useState } from "react";
 import { Button, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useAppContext } from "~hooks/useAppContext";
+import { NetIface } from "~navigation/RootStackPrams";
+import { RadioButtonProps } from "react-native-radio-buttons-group";
+import { IfaceMode, nbIoTMode } from "~contexts/NetworkConfig";
 
 export default () => {
   const style = useThemedStyles(styles);
+  const { contextData } = useAppContext();
 
-  const lanOptions = useMemo(
-    () => [
-      {
-        id: "0",
-        label: "Disabled",
-        value: "Disabled",
-      },
-      {
-        id: "1",
-        label: "DHCP",
-        value: "DHCP",
-      },
-      {
-        id: "2",
-        label: "Manual",
-        value: "Manual",
-      },
-    ],
-    []
-  );
-
-  const pppOptions = useMemo(
-    () => [
-      {
-        id: "0",
-        label: "Disabled",
-        value: "Disabled",
-      },
-      {
-        id: "1",
-        label: "LTE",
-        value: "LTE",
-      },
-      {
-        id: "2",
-        label: "NB-IoT",
-        value: "nbIot",
-      },
-    ],
-    []
-  );
-
-  const [selectedId, setSelectedId] = useState<string>("1");
+  const getStates = (iface: NetIface): RadioButtonProps[] => {
+    const ifaceStates = iface === NetIface.PPP ? nbIoTMode : IfaceMode;
+    return Object.entries(ifaceStates).map(([key, value]) => ({
+      id: key,
+      label: value,
+      value: key,
+      borderSize: 0.5,
+    }));
+  };
+  const [selectedId, setSelectedId] = useState<string>("OFF");
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -68,9 +40,9 @@ export default () => {
 
   return {
     style,
-    lanOptions,
-    pppOptions,
     selectedId,
     setSelectedId,
+    contextData,
+    getStates,
   };
 };
