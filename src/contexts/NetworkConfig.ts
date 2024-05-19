@@ -2,10 +2,6 @@ export enum IfaceMode {
   OFF = "Off",
   DHCP = "DHCP",
   MANUAL = "Manual",
-}
-
-export enum nbIoTMode {
-  OFF = "Off",
   LTE = "LTE",
   NB_IoT = "NB-IoT",
 }
@@ -26,7 +22,7 @@ export type NetworkConfig = {
     router?: string;
   };
   ppp: {
-    mode: nbIoTMode;
+    mode: IfaceMode;
     apn?: string;
     ipv4?: string;
     netmask?: string;
@@ -50,7 +46,7 @@ export const dummyNet: NetworkConfig = {
     router: "192.168.2.1",
   },
   ppp: {
-    mode: nbIoTMode.NB_IoT,
+    mode: IfaceMode.NB_IoT,
     apn: "internet.wind",
     ipv4: "10.0.0.2",
     netmask: "255.255.0.0",

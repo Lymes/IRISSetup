@@ -7,7 +7,7 @@ import RadioGroup from "react-native-radio-buttons-group";
 import React from "react";
 import TextInputMask from "react-native-text-input-mask";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { IfaceMode, nbIoTMode } from "~contexts/NetworkConfig";
+import { IfaceMode, NetworkConfig } from "~contexts/NetworkConfig";
 
 type IfaceConfigProps = NativeStackScreenProps<
   RootStackParamList,
@@ -15,8 +15,14 @@ type IfaceConfigProps = NativeStackScreenProps<
 >;
 
 export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
-  const { style, selectedId, setSelectedId, contextData, getStates } =
-    useIfaceConfigScreenHooks();
+  const {
+    style,
+    selectedId,
+    setSelectedId,
+    localConfig,
+    setLocalConfig,
+    getStates,
+  } = useIfaceConfigScreenHooks();
 
   return (
     <View style={style.safeContainer}>
@@ -29,47 +35,75 @@ export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
         <RadioGroup
           containerStyle={style.container}
           radioButtons={getStates(route.params.iface)}
-          onPress={setSelectedId}
+          onPress={(option) => {
+            setSelectedId(option as IfaceMode);
+          }}
           selectedId={selectedId}
         />
         <View style={style.settings}>
-          {route.params.iface === NetIface.PPP && selectedId != "OFF" && (
-            <View style={style.group}>
-              <Text style={style.label}>APN</Text>
-              <TextInputMask
-                placeholder="internet.wind"
-                placeholderTextColor="grey"
-                style={style.maskedInput}
-                onChangeText={(formatted, extracted) => {}}
-              />
-            </View>
-          )}
+          {route.params.iface === NetIface.PPP &&
+            selectedId != IfaceMode.OFF && (
+              <View style={style.group}>
+                <Text style={style.label}>APN</Text>
+                <TextInputMask
+                  value={localConfig.networkConfig.ppp.apn}
+                  placeholder="internet.wind"
+                  placeholderTextColor="grey"
+                  style={style.maskedInput}
+                  onChangeText={(formatted, extracted) => {
+                    localConfig.networkConfig.ppp.apn = formatted;
+                    let newData = JSON.parse(JSON.stringify(localConfig));
+                    setLocalConfig(newData);
+                  }}
+                />
+              </View>
+            )}
 
-          {route.params.iface === NetIface.WLAN && selectedId != "OFF" && (
-            <>
-              <View style={style.group}>
-                <Text style={style.label}>SSID</Text>
-                <TextInputMask
-                  placeholder="MyHomeNetwork"
-                  placeholderTextColor="grey"
-                  style={style.maskedInput}
-                  onChangeText={(formatted, extracted) => {}}
-                />
-              </View>
-              <View style={style.group}>
-                <Text style={style.label}>Password</Text>
-                <TextInputMask
-                  placeholder="MyPassword"
-                  placeholderTextColor="grey"
-                  style={style.maskedInput}
-                  onChangeText={(formatted, extracted) => {}}
-                />
-              </View>
-            </>
-          )}
-          {route.params.iface != NetIface.PPP && selectedId === "2" && (
-            <IPV4Settings></IPV4Settings>
-          )}
+          {route.params.iface === NetIface.WLAN &&
+            selectedId != IfaceMode.OFF && (
+              <>
+                <View style={style.group}>
+                  <Text style={style.label}>SSID</Text>
+                  <TextInputMask
+                    value={localConfig.networkConfig.wlan.ssid}
+                    placeholder="MyHomeNetwork"
+                    placeholderTextColor="grey"
+                    style={style.maskedInput}
+                    onChangeText={(formatted, extracted) => {
+                      localConfig.networkConfig.wlan.ssid = formatted;
+                      let newData = JSON.parse(JSON.stringify(localConfig));
+                      setLocalConfig(newData);
+                    }}
+                  />
+                </View>
+                <View style={style.group}>
+                  <Text style={style.label}>Password</Text>
+                  <TextInputMask
+                    value={localConfig.networkConfig.wlan.pass}
+                    placeholder="MyPassword"
+                    placeholderTextColor="grey"
+                    style={style.maskedInput}
+                    onChangeText={(formatted, extracted) => {
+                      localConfig.networkConfig.wlan.pass = formatted;
+                      let newData = JSON.parse(JSON.stringify(localConfig));
+                      setLocalConfig(newData);
+                    }}
+                  />
+                </View>
+              </>
+            )}
+          {route.params.iface != NetIface.PPP &&
+            selectedId === IfaceMode.MANUAL && (
+              <IPV4Settings
+                config={localConfig.networkConfig}
+                iface={route.params.iface}
+                onChange={(config: NetworkConfig) => {
+                  localConfig.networkConfig = config;
+                  let newData = JSON.parse(JSON.stringify(localConfig));
+                  setLocalConfig(newData);
+                }}
+              />
+            )}
         </View>
       </KeyboardAwareScrollView>
     </View>
