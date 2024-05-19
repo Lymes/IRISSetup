@@ -49,7 +49,15 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
               : contextData.networkConfig.ppp.mode) ?? "n/a"}
           </Text>
         </View>
-        {iface != NetIface.PPP && (
+
+        {iface === NetIface.PPP && (
+          <View style={style.settingRow}>
+            <Text style={{ width: 100 }}>APN:</Text>
+            <Text>{contextData.networkConfig.ppp.apn ?? "n/a"}</Text>
+          </View>
+        )}
+
+        {
           <>
             {iface === NetIface.WLAN && (
               <View style={style.settingRow}>
@@ -62,7 +70,9 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
               <Text>
                 {(iface === NetIface.WLAN
                   ? contextData.networkConfig.wlan.ipv4
-                  : contextData.networkConfig.eth.ipv4) ?? "n/a"}
+                  : iface === NetIface.ETH
+                  ? contextData.networkConfig.eth.ipv4
+                  : contextData.networkConfig.ppp.ipv4) ?? "n/a"}
               </Text>
             </View>
             <View style={style.settingRow}>
@@ -70,7 +80,9 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
               <Text>
                 {(iface === NetIface.WLAN
                   ? contextData.networkConfig.wlan.netmask
-                  : contextData.networkConfig.eth.netmask) ?? "n/a"}
+                  : iface === NetIface.ETH
+                  ? contextData.networkConfig.eth.netmask
+                  : contextData.networkConfig.ppp.netmask) ?? "n/a"}
               </Text>
             </View>
             <View style={style.settingRow}>
@@ -78,17 +90,13 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
               <Text>
                 {(iface === NetIface.WLAN
                   ? contextData.networkConfig.wlan.router
-                  : contextData.networkConfig.eth.router) ?? "n/a"}
+                  : iface === NetIface.ETH
+                  ? contextData.networkConfig.eth.router
+                  : contextData.networkConfig.ppp.router) ?? "n/a"}
               </Text>
             </View>
           </>
-        )}
-        {iface === NetIface.PPP && (
-          <View style={style.settingRow}>
-            <Text style={{ width: 100 }}>APN:</Text>
-            <Text>{contextData.networkConfig.ppp.apn ?? "n/a"}</Text>
-          </View>
-        )}
+        }
       </View>
     </View>
   );
