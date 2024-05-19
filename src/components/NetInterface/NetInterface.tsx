@@ -7,6 +7,7 @@ import {
   NetIface,
   RootStackParamList,
 } from "~navigation/RootStackPrams";
+import { IfaceMode } from "~contexts/NetworkConfig";
 
 interface NetInterfaceProps {
   iface: NetIface;
@@ -23,7 +24,19 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
     <View style={style.Container}>
       <View style={style.TitleRow}>
         <View style={style.LeftPartTitle}>
-          <Icon name="circle" size={20} color="#900" />
+          <Icon
+            name="circle"
+            size={20}
+            color={
+              (iface === NetIface.WLAN
+                ? contextData.networkConfig.wlan.mode
+                : iface === NetIface.ETH
+                ? contextData.networkConfig.eth.mode
+                : contextData.networkConfig.ppp.mode) === IfaceMode.OFF
+                ? "#900"
+                : "#090"
+            }
+          />
           <Text style={style.label}>
             {IfaceDescription.get(iface as string)}
           </Text>
