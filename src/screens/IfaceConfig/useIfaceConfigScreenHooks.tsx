@@ -7,10 +7,12 @@ import { useAppContext } from "~hooks/useAppContext";
 import { NetIface, RootStackParamList } from "~navigation/RootStackPrams";
 import { RadioButtonProps } from "react-native-radio-buttons-group";
 import { IfaceMode } from "~contexts/NetworkConfig";
+import { bleService } from "~services/bleService";
 
 export default () => {
   const style = useThemedStyles(styles);
-  const { contextData, setContextData } = useAppContext();
+  const { contextData, setContextData, peripheral } = useAppContext();
+  const [isSending, setIsSending] = useState<boolean>(false);
   const [localConfig, setLocalConfig] = useState(
     JSON.parse(JSON.stringify(contextData))
   );
@@ -61,8 +63,9 @@ export default () => {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          onPress={() => {
+          onPress={async () => {
             setContextData(localConfig);
+            await saveToIris();
             navigation.goBack();
           }}
           title="Apply"
@@ -96,6 +99,30 @@ export default () => {
     );
   };
 
+  const saveToIris = async () => {
+    if (peripheral === undefined) return;
+    setIsSending(true);
+    if (!(await bleService.connect(peripheral))) {
+      setIsSending(false);
+      throw new Error("Cannot connect to peripheral");
+    }
+    if (
+      !(await bleService.findServices(peripheral, [bleService.serviceUUID]))
+    ) {
+      setIsSending(false);
+      throw new Error("Cannot find service");
+    }
+    console.log("SAVE to IRIS:", localConfig.networkConfig);
+    await bleService.write(
+      peripheral,
+      bleService.serviceUUID,
+      bleService.Characteristics.networkUUID,
+      JSON.stringify(localConfig.networkConfig)
+    );
+    await bleService.disconnect(peripheral);
+    setIsSending(false);
+  };
+
   return {
     style,
     selectedId,
@@ -103,5 +130,6 @@ export default () => {
     localConfig,
     setLocalConfig,
     getStates,
+    isSending,
   };
 };

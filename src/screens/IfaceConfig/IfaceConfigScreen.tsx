@@ -8,6 +8,7 @@ import React from "react";
 import TextInputMask from "react-native-text-input-mask";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { IfaceMode, NetworkConfig } from "~contexts/NetworkConfig";
+import Spinner from "~components/Spinner";
 
 type IfaceConfigProps = NativeStackScreenProps<
   RootStackParamList,
@@ -22,6 +23,7 @@ export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
     localConfig,
     setLocalConfig,
     getStates,
+    isSending,
   } = useIfaceConfigScreenHooks();
 
   return (
@@ -106,6 +108,7 @@ export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
             )}
         </View>
       </KeyboardAwareScrollView>
+      <Spinner visible={isSending} textContent={"Sending..."} />
     </View>
   );
 }
