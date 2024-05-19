@@ -1,4 +1,3 @@
-import { useAppContext } from "~hooks/useAppContext";
 import useTheme from "~hooks/useTheme";
 import useThemedStyles from "~hooks/useThemedStyles";
 import { styles } from "./IPV4Settings.style";
