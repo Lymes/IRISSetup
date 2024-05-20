@@ -889,7 +889,7 @@ PODS:
     - React-debug
   - react-native-ble-manager (10.1.5):
     - React-Core
-  - react-native-netinfo (11.3.1):
+  - react-native-netinfo (11.3.2):
     - React-Core
   - react-native-orientation-locker (1.7.0):
     - React-Core
@@ -1317,7 +1317,7 @@ SPEC CHECKSUMS:
   React-logger: 60afd40b183e8e6642bfd0108f1a1ad360cc665e
   React-Mapbuffer: 672a9342eb75a4d0663306e94d4dfc88aee73b93
   react-native-ble-manager: 09724bad4d06b86a85e0cd7bd97196fecca15e9a
-  react-native-netinfo: bdb108d340cdb41875c9ced535977cac6d2ff321
+  react-native-netinfo: 076df4f9b07f6670acf4ce9a75aac8d34c2e2ccc
   react-native-orientation-locker: 5819fd23ca89cbac0d736fb4314745f62716d517
   react-native-persist-context: 1da55991eaa354bf94eb34184cccbef117266137
   react-native-safe-area-context: dcab599c527c2d7de2d76507a523d20a0b83823d
