@@ -1,7 +1,7 @@
 import useThemedStyles from "~hooks/useThemedStyles";
 import { styles } from "./IfaceConfigScreen.style";
 import { useEffect, useState } from "react";
-import { Button, Platform } from "react-native";
+import { Alert, Button, Platform } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { useAppContext } from "~hooks/useAppContext";
 import { NetIface, RootStackParamList } from "~navigation/RootStackPrams";
@@ -66,7 +66,6 @@ export default () => {
           onPress={async () => {
             setContextData(localConfig);
             await saveToIris();
-            navigation.goBack();
           }}
           title="Apply"
           color={Platform.OS === "ios" ? "#fff" : "blank"}
@@ -101,26 +100,46 @@ export default () => {
 
   const saveToIris = async () => {
     if (peripheral === undefined) return;
-    setIsSending(true);
-    if (!(await bleService.connect(peripheral))) {
-      setIsSending(false);
-      throw new Error("Cannot connect to peripheral");
-    }
-    if (
-      !(await bleService.findServices(peripheral, [bleService.serviceUUID]))
-    ) {
-      setIsSending(false);
-      throw new Error("Cannot find service");
-    }
-    console.log("SAVE to IRIS:", localConfig.networkConfig);
-    await bleService.write(
-      peripheral,
-      bleService.serviceUUID,
-      bleService.Characteristics.networkUUID,
-      JSON.stringify(localConfig.networkConfig)
+    Alert.alert(
+      "Saving configuration",
+      `Are you sure to change ${route.params.iface} configuration?`,
+      [
+        {
+          text: "No",
+          onPress: async () => {},
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
+            setIsSending(true);
+            if (!(await bleService.connect(peripheral))) {
+              setIsSending(false);
+              throw new Error("Cannot connect to peripheral");
+            }
+            if (
+              !(await bleService.findServices(peripheral, [
+                bleService.serviceUUID,
+              ]))
+            ) {
+              setIsSending(false);
+              throw new Error("Cannot find service");
+            }
+            console.log("SAVE to IRIS:", localConfig.networkConfig);
+            await bleService.write(
+              peripheral,
+              bleService.serviceUUID,
+              bleService.Characteristics.networkUUID,
+              JSON.stringify(localConfig.networkConfig)
+            );
+            await bleService.disconnect(peripheral);
+            setIsSending(false);
+            navigation.goBack();
+          },
+        },
+      ],
+      { cancelable: false }
     );
-    await bleService.disconnect(peripheral);
-    setIsSending(false);
   };
 
   return {

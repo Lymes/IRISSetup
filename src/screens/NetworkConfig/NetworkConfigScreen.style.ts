@@ -27,7 +27,7 @@ const styles = (theme: ThemeContextData) => {
       justifyContent: "flex-start",
       rowGap: 40,
       zIndex: 1,
-      paddingTop: 100,
+      paddingTop: 60,
     },
     title: {
       marginTop: 100,
