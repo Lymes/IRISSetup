@@ -19,7 +19,7 @@ interface NetInterfaceProps {
 }
 
 const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
-  const { style, contextData } = useNetInterfaceHooks();
+  const { style, contextData, isOn } = useNetInterfaceHooks();
   return (
     <View style={style.Container}>
       <View style={style.TitleRow}>
@@ -63,7 +63,7 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
           </Text>
         </View>
 
-        {iface === NetIface.PPP && (
+        {iface === NetIface.PPP && isOn(iface) && (
           <View style={style.settingRow}>
             <Text style={{ width: 100 }}>APN:</Text>
             <Text>{contextData.networkConfig.ppp.apn ?? "n/a"}</Text>
@@ -72,42 +72,48 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
 
         {
           <>
-            {iface === NetIface.WLAN && (
+            {iface === NetIface.WLAN && isOn(iface) && (
               <View style={style.settingRow}>
                 <Text style={{ width: 100 }}>SSID:</Text>
                 <Text>{contextData.networkConfig.wlan.ssid ?? "n/a"}</Text>
               </View>
             )}
-            <View style={style.settingRow}>
-              <Text style={{ width: 100 }}>IP:</Text>
-              <Text>
-                {(iface === NetIface.WLAN
-                  ? contextData.networkConfig.wlan.ipv4
-                  : iface === NetIface.ETH
-                  ? contextData.networkConfig.eth.ipv4
-                  : contextData.networkConfig.ppp.ipv4) ?? "n/a"}
-              </Text>
-            </View>
-            <View style={style.settingRow}>
-              <Text style={{ width: 100 }}>Netmask:</Text>
-              <Text>
-                {(iface === NetIface.WLAN
-                  ? contextData.networkConfig.wlan.netmask
-                  : iface === NetIface.ETH
-                  ? contextData.networkConfig.eth.netmask
-                  : contextData.networkConfig.ppp.netmask) ?? "n/a"}
-              </Text>
-            </View>
-            <View style={style.settingRow}>
-              <Text style={{ width: 100 }}>Router:</Text>
-              <Text>
-                {(iface === NetIface.WLAN
-                  ? contextData.networkConfig.wlan.router
-                  : iface === NetIface.ETH
-                  ? contextData.networkConfig.eth.router
-                  : contextData.networkConfig.ppp.router) ?? "n/a"}
-              </Text>
-            </View>
+            {isOn(iface) && (
+              <View style={style.settingRow}>
+                <Text style={{ width: 100 }}>IP:</Text>
+                <Text>
+                  {(iface === NetIface.WLAN
+                    ? contextData.networkConfig.wlan.ipv4
+                    : iface === NetIface.ETH
+                    ? contextData.networkConfig.eth.ipv4
+                    : contextData.networkConfig.ppp.ipv4) ?? "n/a"}
+                </Text>
+              </View>
+            )}
+            {isOn(iface) && (
+              <View style={style.settingRow}>
+                <Text style={{ width: 100 }}>Netmask:</Text>
+                <Text>
+                  {(iface === NetIface.WLAN
+                    ? contextData.networkConfig.wlan.netmask
+                    : iface === NetIface.ETH
+                    ? contextData.networkConfig.eth.netmask
+                    : contextData.networkConfig.ppp.netmask) ?? "n/a"}
+                </Text>
+              </View>
+            )}
+            {isOn(iface) && (
+              <View style={style.settingRow}>
+                <Text style={{ width: 100 }}>Router:</Text>
+                <Text>
+                  {(iface === NetIface.WLAN
+                    ? contextData.networkConfig.wlan.router
+                    : iface === NetIface.ETH
+                    ? contextData.networkConfig.eth.router
+                    : contextData.networkConfig.ppp.router) ?? "n/a"}
+                </Text>
+              </View>
+            )}
           </>
         }
       </View>

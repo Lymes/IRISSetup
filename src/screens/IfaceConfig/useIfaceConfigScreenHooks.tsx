@@ -64,7 +64,6 @@ export default () => {
       headerRight: () => (
         <Button
           onPress={async () => {
-            setContextData(localConfig);
             await saveToIris();
           }}
           title="Apply"
@@ -133,6 +132,8 @@ export default () => {
               JSON.stringify(localConfig.networkConfig)
             );
             await bleService.disconnect(peripheral);
+            let newConfig = JSON.parse(JSON.stringify(localConfig));
+            setContextData(newConfig);
             setIsSending(false);
             navigation.goBack();
           },
