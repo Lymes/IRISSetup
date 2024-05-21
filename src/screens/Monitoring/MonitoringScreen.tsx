@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "~navigation/RootStackPrams";
 import useMonitoringScreenHooks from "./useMonitoringScreenHooks";
+import PrimaryButton from "~components/Buttons/PrimaryButton";
 
 type MonitoringConfigProps = NativeStackScreenProps<
   RootStackParamList,
@@ -11,12 +12,24 @@ type MonitoringConfigProps = NativeStackScreenProps<
 export default function NetworkConfigScreen({
   navigation,
 }: MonitoringConfigProps) {
-  const { style } = useMonitoringScreenHooks();
+  const { style, logs } = useMonitoringScreenHooks();
 
   return (
     <View style={style.safeContainer}>
       <View style={style.container}>
-        <Text style={style.title}>Monitoring</Text>
+        <Text style={style.title}>IRIS Logs</Text>
+        <View style={style.logContainer}>
+          <FlatList
+            data={logs}
+            renderItem={({ item }) => <Text style={style.logText}>{item}</Text>}
+          />
+        </View>
+        <PrimaryButton
+          // disabled={isSending}
+          style={style.ctaButton}
+          title="Reload"
+          onPress={async () => {}}
+        />
       </View>
     </View>
   );

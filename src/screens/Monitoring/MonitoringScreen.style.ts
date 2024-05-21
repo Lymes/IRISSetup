@@ -28,12 +28,23 @@ const styles = (theme: ThemeContextData) => {
       zIndex: 1,
     },
     title: {
-      marginTop: 100,
-      marginBottom: 100,
+      marginTop: 80,
       color: theme.colors.primary,
       fontFamily: theme.typography.family.bold,
-      fontSize: theme.typography.size.large,
+      fontSize: theme.typography.size.medium,
       alignSelf: "center",
+    },
+    logContainer: {
+      alignSelf: "center",
+      width: "80%",
+      height: 300,
+      borderRadius: 8,
+      borderColor: theme.colors.borderColor,
+      borderWidth: 1,
+    },
+    logText: {
+      color: theme.colors.primary,
+      fontFamily: theme.typography.family.light,
     },
     ctaButton: {
       alignSelf: "center",

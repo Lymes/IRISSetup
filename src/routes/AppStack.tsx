@@ -21,7 +21,6 @@ export const AppStack = () => {
   }, []);
 
   return (
-    //<Stack.Navigator initialRouteName="NetworkConfig">
     <Stack.Navigator initialRouteName="Home">
       <Stack.Group>
         <Stack.Screen
