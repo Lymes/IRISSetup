@@ -8,6 +8,7 @@ const serviceUUID = "8888";
 enum Characteristics {
   setupUUID = "8888",
   networkUUID = "8889",
+  monitoringUUID = "8890",
 }
 
 const dummyPeripheral: Peripheral = {

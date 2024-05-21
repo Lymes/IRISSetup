@@ -3,6 +3,8 @@ import useThemedStyles from "~hooks/useThemedStyles";
 import { styles } from "./MonitoringScreen.style";
 import { RootStackParamList } from "~navigation/RootStackPrams";
 import { useState } from "react";
+import { useAppContext } from "~hooks/useAppContext";
+import { bleService } from "~services/bleService";
 
 export type HomeNavigation = NativeStackNavigationProp<
   RootStackParamList,
@@ -11,14 +13,40 @@ export type HomeNavigation = NativeStackNavigationProp<
 
 export default () => {
   const style = useThemedStyles(styles);
-  const [isSending, setSending] = useState<boolean>();
+  const [isSending, setIsSending] = useState<boolean>();
   const [logs, setLogs] = useState(Array<string>());
+  const { contextData, setContextData, peripheral } = useAppContext();
 
   const reload = () => {
-    setSending(true);
+    setIsSending(true);
     setTimeout(() => {
-      setSending(false);
+      setIsSending(false);
     }, 200);
+  };
+
+  const readFromIris = async () => {
+    if (peripheral === undefined) return;
+    setIsSending(true);
+    if (!(await bleService.connect(peripheral))) {
+      setIsSending(false);
+      throw new Error("Cannot connect to peripheral");
+    }
+    if (
+      !(await bleService.findServices(peripheral, [bleService.serviceUUID]))
+    ) {
+      setIsSending(false);
+      throw new Error("Cannot find service");
+    }
+
+    const logs =
+      (await bleService.read(
+        peripheral,
+        bleService.serviceUUID,
+        bleService.Characteristics.monitoringUUID
+      )) || "";
+
+    await bleService.disconnect(peripheral);
+    setIsSending(false);
   };
 
   return {
