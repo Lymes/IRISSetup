@@ -3,6 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "~navigation/RootStackPrams";
 import useMonitoringScreenHooks from "./useMonitoringScreenHooks";
 import PrimaryButton from "~components/Buttons/PrimaryButton";
+import Spinner from "~components/Spinner";
 
 type MonitoringConfigProps = NativeStackScreenProps<
   RootStackParamList,
@@ -32,6 +33,7 @@ export default function NetworkConfigScreen({
             reload();
           }}
         />
+        <Spinner visible={isSending} textContent={"Loading..."} />
       </View>
     </View>
   );

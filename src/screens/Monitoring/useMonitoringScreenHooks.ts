@@ -14,7 +14,12 @@ export default () => {
   const [isSending, setSending] = useState<boolean>();
   const [logs, setLogs] = useState(Array<string>());
 
-  const reload = () => {};
+  const reload = () => {
+    setSending(true);
+    setTimeout(() => {
+      setSending(false);
+    }, 200);
+  };
 
   return {
     style,
