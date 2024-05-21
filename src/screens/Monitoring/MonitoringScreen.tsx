@@ -12,7 +12,7 @@ type MonitoringConfigProps = NativeStackScreenProps<
 export default function NetworkConfigScreen({
   navigation,
 }: MonitoringConfigProps) {
-  const { style, logs } = useMonitoringScreenHooks();
+  const { style, isSending, logs, reload } = useMonitoringScreenHooks();
 
   return (
     <View style={style.safeContainer}>
@@ -25,10 +25,12 @@ export default function NetworkConfigScreen({
           />
         </View>
         <PrimaryButton
-          // disabled={isSending}
+          disabled={isSending}
           style={style.ctaButton}
           title="Reload"
-          onPress={async () => {}}
+          onPress={async () => {
+            reload();
+          }}
         />
       </View>
     </View>

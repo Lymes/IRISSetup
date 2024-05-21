@@ -11,10 +11,15 @@ export type HomeNavigation = NativeStackNavigationProp<
 
 export default () => {
   const style = useThemedStyles(styles);
+  const [isSending, setSending] = useState<boolean>();
   const [logs, setLogs] = useState(Array<string>());
+
+  const reload = () => {};
 
   return {
     style,
+    isSending,
     logs,
+    reload,
   };
 };
