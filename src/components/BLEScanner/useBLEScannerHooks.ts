@@ -45,27 +45,7 @@ export default () => {
       setIsConnecting(false);
       throw new Error("Cannot find IRIS service");
     }
-    // let publicKey = await bleService.read(
-    //   peripheral,
-    //   bleService.serviceUUID,
-    //   bleService.Characteristics.publicKeyUUID
-    // );
-    // if (publicKey === undefined) {
-    //   setIsConnecting(false);
-    //   throw new Error("Cannot read RSA public key");
-    // }
-    // let macAddress = await bleService.read(
-    //   peripheral,
-    //   bleService.serviceUUID,
-    //   bleService.Characteristics.macAddressUUID
-    // );
-    // if (macAddress === undefined) {
-    //   setIsConnecting(false);
-    //   throw new Error("Cannot read MAC address");
-    // }
     await bleService.disconnect(peripheral);
-    // console.log(publicKey);
-    // console.log("MAC address:", macAddress);
     setIsConnecting(false);
   };
 

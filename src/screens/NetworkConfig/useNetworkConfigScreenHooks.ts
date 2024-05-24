@@ -4,7 +4,7 @@ import { styles } from "./NetworkConfigScreen.style";
 import { RootStackParamList } from "~navigation/RootStackPrams";
 import { bleService } from "~services/bleService";
 import { NetworkConfig } from "~contexts/NetworkConfig";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useAppContext } from "~hooks/useAppContext";
 
 export type HomeNavigation = NativeStackNavigationProp<

@@ -15,7 +15,7 @@ export default () => {
   const style = useThemedStyles(styles);
   const [isSending, setIsSending] = useState<boolean>();
   const [logs, setLogs] = useState(Array<string>());
-  const { contextData, setContextData, peripheral } = useAppContext();
+  const { peripheral } = useAppContext();
 
   const reload = () => {
     setIsSending(true);
