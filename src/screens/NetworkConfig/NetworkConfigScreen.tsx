@@ -1,10 +1,11 @@
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NetIface, RootStackParamList } from "~navigation/RootStackPrams";
 import useNetworkConfigScreenHooks from "./useNetworkConfigScreenHooks";
 import NetInterface from "~components/NetInterface/NetInterface";
 import Spinner from "~components/Spinner";
 import PrimaryButton from "~components/Buttons/PrimaryButton";
+import { useEffect } from "react";
 
 type NetConfigProps = NativeStackScreenProps<
   RootStackParamList,
@@ -14,6 +15,12 @@ type NetConfigProps = NativeStackScreenProps<
 export default function NetworkConfigScreen({ navigation }: NetConfigProps) {
   const { style, contextData, isSending, readFromIris } =
     useNetworkConfigScreenHooks();
+
+  useEffect(() => {
+    (async () => {
+      readFromIris();
+    })();
+  }, []);
 
   console.log("Load NetworkConfigScreen", contextData.networkConfig);
 

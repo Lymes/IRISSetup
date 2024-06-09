@@ -26,9 +26,7 @@ export default () => {
     setIsScanning(true);
     setPeripheral(undefined);
     setPeripherals([bleService.dummyPeripheral]);
-    await bleService.startScan([
-      /*bleService.serviceUUID*/
-    ]);
+    await bleService.startScan([bleService.serviceUUID]);
   };
 
   const connect = async (peripheral: Peripheral) => {

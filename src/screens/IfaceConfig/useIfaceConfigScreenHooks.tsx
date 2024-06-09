@@ -8,6 +8,7 @@ import { NetIface, RootStackParamList } from "~navigation/RootStackPrams";
 import { RadioButtonProps } from "react-native-radio-buttons-group";
 import { IfaceMode } from "~contexts/NetworkConfig";
 import { bleService } from "~services/bleService";
+import * as fflate from "fflate";
 
 export default () => {
   const style = useThemedStyles(styles);
@@ -79,11 +80,9 @@ export default () => {
       (selectedId === IfaceMode.MANUAL &&
         ((route.params.iface === NetIface.ETH &&
           (!localConfig.networkConfig.eth.ipv4 ||
-            !localConfig.networkConfig.eth.netmask ||
             !localConfig.networkConfig.eth.router)) ||
           (route.params.iface === NetIface.WLAN &&
             (!localConfig.networkConfig.wlan.ipv4 ||
-              !localConfig.networkConfig.wlan.netmask ||
               !localConfig.networkConfig.wlan.router ||
               !localConfig.networkConfig.wlan.ssid ||
               !localConfig.networkConfig.wlan.pass)))) ||
@@ -114,7 +113,9 @@ export default () => {
             setIsSending(true);
             if (!(await bleService.connect(peripheral))) {
               setIsSending(false);
-              throw new Error("Cannot connect to peripheral");
+              Alert.alert("Iris BLE", "Cannot connect to device", [
+                { text: "OK" },
+              ]);
             }
             if (
               !(await bleService.findServices(peripheral, [
@@ -122,14 +123,20 @@ export default () => {
               ]))
             ) {
               setIsSending(false);
-              throw new Error("Cannot find service");
+              Alert.alert("Iris BLE", "Cannot find service", [{ text: "OK" }]);
             }
             console.log("SAVE to IRIS:", localConfig.networkConfig);
-            await bleService.write(
+
+            const buf = fflate.strToU8(
+              JSON.stringify(localConfig.networkConfig)
+            );
+            const compressed = fflate.compressSync(buf);
+
+            await bleService.writeBytes(
               peripheral,
               bleService.serviceUUID,
-              bleService.Characteristics.networkUUID,
-              JSON.stringify(localConfig.networkConfig)
+              bleService.Characteristics.networkWriteUUID,
+              Array.from(compressed)
             );
             await bleService.disconnect(peripheral);
             let newConfig = JSON.parse(JSON.stringify(localConfig));

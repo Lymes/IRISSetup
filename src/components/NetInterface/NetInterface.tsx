@@ -92,18 +92,6 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
             )}
             {isOn(iface) && (
               <View style={style.settingRow}>
-                <Text style={{ width: 100 }}>Netmask:</Text>
-                <Text>
-                  {(iface === NetIface.WLAN
-                    ? contextData.networkConfig.wlan.netmask
-                    : iface === NetIface.ETH
-                    ? contextData.networkConfig.eth.netmask
-                    : contextData.networkConfig.ppp.netmask) ?? "n/a"}
-                </Text>
-              </View>
-            )}
-            {isOn(iface) && (
-              <View style={style.settingRow}>
                 <Text style={{ width: 100 }}>Router:</Text>
                 <Text>
                   {(iface === NetIface.WLAN

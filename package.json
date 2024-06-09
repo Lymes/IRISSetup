@@ -23,6 +23,7 @@
     "@types/i18n-js": "^3.8.7",
     "@types/react-native-i18n": "^2.0.1",
     "convert-string": "^0.1.0",
+    "fflate": "^0.8.2",
     "i18n-js": "^4.3.2",
     "install": "^0.13.0",
     "npm": "^10.2.4",

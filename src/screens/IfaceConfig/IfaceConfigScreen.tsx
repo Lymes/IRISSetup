@@ -88,6 +88,7 @@ export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
                     onChangeText={(formatted, extracted) => {
                       localConfig.networkConfig.wlan.pass = formatted;
                       let newData = JSON.parse(JSON.stringify(localConfig));
+                      console.log("cazz", newData);
                       setLocalConfig(newData);
                     }}
                   />
@@ -102,6 +103,7 @@ export default function IfaceConfigScreen({ route }: IfaceConfigProps) {
                 onChange={(config: NetworkConfig) => {
                   localConfig.networkConfig = config;
                   let newData = JSON.parse(JSON.stringify(localConfig));
+                  console.log("cazz", newData);
                   setLocalConfig(newData);
                 }}
               />

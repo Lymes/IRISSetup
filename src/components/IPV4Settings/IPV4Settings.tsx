@@ -12,7 +12,8 @@ interface Props {
 }
 
 const IPV4Settings: React.FC<Props> = (props: Props) => {
-  const mask = "[099]{.}[099]{.}[099]{.}[099]";
+  const ipMask = "[099]{.}[099]{.}[099]{.}[099]/[09]";
+  const mask = "[099]{.}[099]{.}[099]{.}[099]/[09]";
   const { style, validateIPv4 } = useIPV4SettingsHooks();
 
   return (
@@ -26,35 +27,13 @@ const IPV4Settings: React.FC<Props> = (props: Props) => {
               : props.config.wlan.ipv4
           }
           style={style.maskedInput}
-          mask={mask}
-          placeholder="192.168.0.10"
+          mask={ipMask}
+          placeholder="192.168.0.10/24"
           placeholderTextColor="grey"
           onChangeText={(formatted, extracted) => {
             let ipv4 = validateIPv4(formatted) ? formatted : "";
             if (props.iface === NetIface.ETH) props.config.eth.ipv4 = ipv4;
             else props.config.wlan.ipv4 = ipv4;
-            let newData = JSON.parse(JSON.stringify(props.config));
-            props.onChange(newData);
-          }}
-        />
-      </View>
-      <View style={style.group}>
-        <Text style={style.label}>Network mask</Text>
-        <TextInputMask
-          value={
-            props.iface === NetIface.ETH
-              ? props.config.eth.netmask
-              : props.config.wlan.netmask
-          }
-          style={style.maskedInput}
-          mask={mask}
-          placeholder="255.255.255.0"
-          placeholderTextColor="grey"
-          onChangeText={(formatted, extracted) => {
-            let netmask = validateIPv4(formatted) ? formatted : "";
-            if (props.iface === NetIface.ETH)
-              props.config.eth.netmask = netmask;
-            else props.config.wlan.netmask = netmask;
             let newData = JSON.parse(JSON.stringify(props.config));
             props.onChange(newData);
           }}

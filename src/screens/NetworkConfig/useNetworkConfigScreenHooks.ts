@@ -6,6 +6,7 @@ import { bleService } from "~services/bleService";
 import { NetworkConfig } from "~contexts/NetworkConfig";
 import { useState } from "react";
 import { useAppContext } from "~hooks/useAppContext";
+import { decompressSync, strFromU8 } from "fflate";
 
 export type HomeNavigation = NativeStackNavigationProp<
   RootStackParamList,
@@ -20,30 +21,42 @@ export default () => {
   const readFromIris = async () => {
     if (peripheral === undefined) return;
     setIsSending(true);
+
     if (!(await bleService.connect(peripheral))) {
       setIsSending(false);
-      throw new Error("Cannot connect to peripheral");
+      return;
     }
     if (
       !(await bleService.findServices(peripheral, [bleService.serviceUUID]))
     ) {
       setIsSending(false);
-      throw new Error("Cannot find service");
+      return;
     }
+    const compressed = await bleService.readBytes(
+      peripheral,
+      bleService.serviceUUID,
+      bleService.Characteristics.networkReadUUID
+    );
 
-    const netConfStr =
-      (await bleService.read(
-        peripheral,
-        bleService.serviceUUID,
-        bleService.Characteristics.networkUUID
-      )) || "";
-
+    // const byteArray = new Uint8Array(compressed.length);
+    // for (let index = 0; index < byteArray.length; index++) {
+    //   const byte = compressed[index] & 0xff;
+    //   byteArray[index] = byte;
+    // }
+    const netConfStr = strFromU8(
+      decompressSync(Uint8Array.from(compressed, (z) => z))
+    );
     await bleService.disconnect(peripheral);
-    const netConf: NetworkConfig = JSON.parse(netConfStr);
-    setContextData({
-      cloudData: contextData.cloudData,
-      networkConfig: netConf,
-    });
+    try {
+      const netConf: NetworkConfig = JSON.parse(netConfStr);
+      setContextData({
+        cloudData: contextData.cloudData,
+        networkConfig: netConf,
+      });
+    } catch (e) {
+      setIsSending(false);
+      return;
+    }
     setIsSending(false);
   };
 

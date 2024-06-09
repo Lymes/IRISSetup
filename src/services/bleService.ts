@@ -7,8 +7,9 @@ const serviceUUID = "8888";
 
 enum Characteristics {
   setupUUID = "8888",
-  networkUUID = "8889",
-  monitoringUUID = "8890",
+  networkReadUUID = "8889",
+  networkWriteUUID = "8890",
+  monitoringUUID = "8891",
 }
 
 const dummyPeripheral: Peripheral = {
@@ -161,6 +162,38 @@ const write = (
   });
 };
 
+const writeBytes = (
+  peripheral: Peripheral,
+  serviceUUID: string,
+  characteristicUUID: string,
+  payload: number[]
+): Promise<boolean> => {
+  return new Promise((resolve) => {
+    if (peripheral.id === dummyPeripheral.id) {
+      setTimeout(() => {
+        resolve(true);
+      }, 200);
+      return;
+    }
+    console.log(`BLE: writing ${payload}`);
+    BleManager.write(
+      peripheral.id,
+      serviceUUID,
+      characteristicUUID,
+      payload,
+      payload.length
+    )
+      .then(() => {
+        console.log(`BLE: wuccessfully wrote to ${characteristicUUID}`);
+        resolve(true);
+      })
+      .catch(() => {
+        console.log(`BLE: failed to write to ${characteristicUUID}`);
+        resolve(false);
+      });
+  });
+};
+
 const read = (
   peripheral: Peripheral,
   serviceUUID: string,
@@ -182,6 +215,31 @@ const read = (
       .catch(() => {
         console.log(`BLE: failed to read from ${characteristicUUID}`);
         resolve(undefined);
+      });
+  });
+};
+
+const readBytes = (
+  peripheral: Peripheral,
+  serviceUUID: string,
+  characteristicUUID: string
+): Promise<number[]> => {
+  return new Promise((resolve) => {
+    if (peripheral.id === dummyPeripheral.id) {
+      setTimeout(() => {
+        resolve([]);
+      }, 200);
+      return;
+    }
+    BleManager.read(peripheral.id, serviceUUID, characteristicUUID)
+      .then((readData) => {
+        console.log(`BLE: successfully read from ${characteristicUUID}`);
+        resolve(readData);
+      })
+      .catch((e) => {
+        console.log("ZZZZZ", e);
+        console.log(`BLE: failed to read from ${characteristicUUID}`);
+        resolve([]);
       });
   });
 };
@@ -274,7 +332,9 @@ export const bleService = {
   findServices,
   disconnect,
   write,
+  writeBytes,
   read,
+  readBytes,
   subscribe,
   handleAndroidPermissions,
   isDummyPeripheral,
