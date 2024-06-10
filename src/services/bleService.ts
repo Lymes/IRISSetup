@@ -237,7 +237,6 @@ const readBytes = (
         resolve(readData);
       })
       .catch((e) => {
-        console.log("ZZZZZ", e);
         console.log(`BLE: failed to read from ${characteristicUUID}`);
         resolve([]);
       });
