@@ -6,3 +6,4 @@ declare module "immutability-helper";
 declare module "lodash";
 declare module "*.jpg";
 declare module "*.png";
+declare module "*.svg";

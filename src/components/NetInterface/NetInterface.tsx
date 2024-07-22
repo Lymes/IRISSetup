@@ -37,7 +37,7 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
                 : "#090"
             }
           />
-          <Text style={style.label}>
+          <Text style={style.title}>
             {IfaceDescription.get(iface as string)}
           </Text>
         </View>
@@ -47,14 +47,14 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
           }}
           hitSlop={20}
         >
-          <Icon name="wrench" size={20} color="#000" />
+          <Icon name="wrench" size={30} color="white" />
         </TouchableOpacity>
       </View>
 
       <View style={style.details}>
         <View style={style.settingRow}>
-          <Text style={{ width: 100 }}>Mode:</Text>
-          <Text>
+          <Text style={[style.label, { width: 100 }]}>Mode:</Text>
+          <Text style={style.label}>
             {(iface === NetIface.WLAN
               ? contextData.networkConfig.wlan.mode
               : iface === NetIface.ETH
@@ -65,8 +65,10 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
 
         {iface === NetIface.PPP && isOn(iface) && (
           <View style={style.settingRow}>
-            <Text style={{ width: 100 }}>APN:</Text>
-            <Text>{contextData.networkConfig.ppp.apn ?? "n/a"}</Text>
+            <Text style={[style.label, { width: 100 }]}>APN:</Text>
+            <Text style={style.label}>
+              {contextData.networkConfig.ppp.apn ?? "n/a"}
+            </Text>
           </View>
         )}
 
@@ -74,14 +76,16 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
           <>
             {iface === NetIface.WLAN && isOn(iface) && (
               <View style={style.settingRow}>
-                <Text style={{ width: 100 }}>SSID:</Text>
-                <Text>{contextData.networkConfig.wlan.ssid ?? "n/a"}</Text>
+                <Text style={[style.label, { width: 100 }]}>SSID:</Text>
+                <Text style={style.label}>
+                  {contextData.networkConfig.wlan.ssid ?? "n/a"}
+                </Text>
               </View>
             )}
             {isOn(iface) && (
               <View style={style.settingRow}>
-                <Text style={{ width: 100 }}>IP:</Text>
-                <Text>
+                <Text style={[style.label, { width: 100 }]}>IP:</Text>
+                <Text style={style.label}>
                   {(iface === NetIface.WLAN
                     ? contextData.networkConfig.wlan.ipv4
                     : iface === NetIface.ETH
@@ -92,8 +96,8 @@ const NetInterface: React.FC<NetInterfaceProps> = ({ iface, navigation }) => {
             )}
             {isOn(iface) && (
               <View style={style.settingRow}>
-                <Text style={{ width: 100 }}>Router:</Text>
-                <Text>
+                <Text style={[style.label, { width: 100 }]}>Router:</Text>
+                <Text style={style.label}>
                   {(iface === NetIface.WLAN
                     ? contextData.networkConfig.wlan.router
                     : iface === NetIface.ETH

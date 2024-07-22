@@ -10,7 +10,7 @@ type MonitoringConfigProps = NativeStackScreenProps<
   "Monitoring"
 >;
 
-export default function NetworkConfigScreen({
+export default function MonitoringScreen({
   navigation,
 }: MonitoringConfigProps) {
   const { style, isSending, logs, reload } = useMonitoringScreenHooks();
@@ -18,7 +18,6 @@ export default function NetworkConfigScreen({
   return (
     <View style={style.safeContainer}>
       <View style={style.container}>
-        <Text style={style.title}>IRIS Logs</Text>
         <View style={style.logContainer}>
           <FlatList
             data={logs}

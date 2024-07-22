@@ -10,7 +10,7 @@ const styles = (theme: ThemeContextData) => {
       left: 0,
       width: "100%",
       height: windowHeight,
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.secondaryBackground,
     },
     background: {
       position: "absolute",
@@ -25,9 +25,9 @@ const styles = (theme: ThemeContextData) => {
       flex: 1,
       alignItems: "stretch",
       justifyContent: "flex-start",
-      rowGap: 40,
+      rowGap: 20,
       zIndex: 1,
-      paddingTop: 60,
+      paddingTop: 20,
     },
     title: {
       marginTop: 100,
@@ -46,7 +46,6 @@ const styles = (theme: ThemeContextData) => {
       fontSize: theme.typography.size.small,
       width: "80%",
       height: 50,
-      marginTop: 50,
     },
   });
 };

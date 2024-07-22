@@ -31,60 +31,51 @@ export default function SetupScreen({ navigation }: SetupProps) {
 
   return (
     <View style={style.safeContainer}>
-      <ImageBackground
-        source={dsgw}
-        style={style.background}
-        imageStyle={{ opacity: 0.4 }}
-      >
-        <LicenseCounter />
-        <View style={style.container}>
-          <Text style={style.title}>Select IRIS license:</Text>
-          <View style={style.logContainer}>
-            <FlatList
-              data={contextData.cloudData}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    setLicense(item);
-                  }}
+      <LicenseCounter />
+      <View style={style.container}>
+        <View style={style.logContainer}>
+          <FlatList
+            data={contextData.cloudData}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => {
+                  setLicense(item);
+                }}
+              >
+                <Text
+                  numberOfLines={1}
+                  style={[
+                    style.logText,
+                    license === item
+                      ? {
+                          backgroundColor: theme.colors.primaryBackground,
+                        }
+                      : {
+                          backgroundColor: "transparent",
+                        },
+                  ]}
                 >
-                  <Text
-                    numberOfLines={1}
-                    style={[
-                      style.logText,
-                      license === item
-                        ? {
-                            backgroundColor: theme.colors.primaryBackground,
-                            color: theme.colors.background,
-                          }
-                        : {
-                            backgroundColor: "transparent",
-                            color: theme.colors.primary,
-                          },
-                    ]}
-                  >
-                    {item.plantId || item.serialNumber}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-
-          <PrimaryButton
-            style={style.sendButton}
-            title="Send to IRIS"
-            disabled={license === undefined}
-            onPress={async () => {
-              try {
-                Keyboard.dismiss();
-                await sendToIris();
-              } catch (error) {
-                Alert.alert("IRIS", `${error}`, [{ text: "OK" }]);
-              }
-            }}
+                  {item.plantId || item.serialNumber}
+                </Text>
+              </TouchableOpacity>
+            )}
           />
         </View>
-      </ImageBackground>
+
+        <PrimaryButton
+          style={style.sendButton}
+          title="Send to IRIS"
+          disabled={license === undefined}
+          onPress={async () => {
+            try {
+              Keyboard.dismiss();
+              await sendToIris();
+            } catch (error) {
+              Alert.alert("IRIS", `${error}`, [{ text: "OK" }]);
+            }
+          }}
+        />
+      </View>
       <Spinner visible={isSending} textContent={"Sending..."} />
     </View>
   );

@@ -39,11 +39,9 @@ const BLEScanner: React.FC<BLEScannerProps> = ({ onConnect }) => {
                     peripheral === item
                       ? {
                           backgroundColor: theme.colors.primaryBackground,
-                          color: theme.colors.background,
                         }
                       : {
                           backgroundColor: "transparent",
-                          color: theme.colors.primary,
                         },
                   ]}
                 >
@@ -53,29 +51,27 @@ const BLEScanner: React.FC<BLEScannerProps> = ({ onConnect }) => {
             )}
           />
         </View>
-        <View style={style.buttonRow}>
-          <PrimaryButton
-            disabled={isScanning}
-            style={style.scanButton}
-            title="Scan"
-            onPress={startScan}
-          />
-          <PrimaryButton
-            disabled={peripheral === undefined}
-            style={style.scanButton}
-            title="Connect"
-            onPress={async () => {
-              if (peripheral !== undefined) {
-                try {
-                  await connect(peripheral);
-                  onConnect();
-                } catch (error) {
-                  Alert.alert("BLE", `${error}`, [{ text: "OK" }]);
-                }
+        <PrimaryButton
+          disabled={isScanning}
+          style={style.scanButton}
+          title="Scan"
+          onPress={startScan}
+        />
+        <PrimaryButton
+          disabled={peripheral === undefined}
+          style={style.scanButton}
+          title="Connect"
+          onPress={async () => {
+            if (peripheral !== undefined) {
+              try {
+                await connect(peripheral);
+                onConnect();
+              } catch (error) {
+                Alert.alert("BLE", `${error}`, [{ text: "OK" }]);
               }
-            }}
-          />
-        </View>
+            }
+          }}
+        />
       </View>
       <Spinner visible={isScanning} textContent={"Scanning..."} />
       <Spinner visible={isConnecting} textContent={"Connecting..."} />

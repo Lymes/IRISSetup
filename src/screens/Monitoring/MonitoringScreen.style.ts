@@ -10,7 +10,7 @@ const styles = (theme: ThemeContextData) => {
       left: 0,
       width: "100%",
       height: windowHeight,
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.secondaryBackground,
     },
     background: {
       position: "absolute",
@@ -19,6 +19,7 @@ const styles = (theme: ThemeContextData) => {
       width: "100%",
       height: windowHeight,
       zIndex: 0,
+      backgroundColor: theme.colors.secondaryBackground,
     },
     container: {
       flex: 1,
@@ -36,11 +37,10 @@ const styles = (theme: ThemeContextData) => {
     },
     logContainer: {
       alignSelf: "center",
-      width: "80%",
-      height: 300,
-      borderRadius: 8,
-      borderColor: theme.colors.borderColor,
-      borderWidth: 1,
+      width: "100%",
+      height: 500,
+      marginTop: 50,
+      backgroundColor: "#081425",
     },
     logText: {
       color: theme.colors.primary,

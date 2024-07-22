@@ -10,7 +10,7 @@ const styles = (theme: ThemeContextData) => {
       left: 0,
       width: "100%",
       height: windowHeight,
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.secondaryBackground,
     },
     background: {
       position: "absolute",
@@ -30,6 +30,7 @@ const styles = (theme: ThemeContextData) => {
       width: "80%",
       alignItems: "flex-start",
       justifyContent: "center",
+      color: "white",
       zIndex: 1,
     },
     settings: {
@@ -38,7 +39,7 @@ const styles = (theme: ThemeContextData) => {
       justifyContent: "center",
       width: "80%",
       rowGap: 10,
-      marginTop: 20,
+      marginTop: 40,
     },
     group: {
       width: "100%",
@@ -47,18 +48,20 @@ const styles = (theme: ThemeContextData) => {
     maskedInput: {
       borderWidth: 0.5,
       borderRadius: 4,
+      borderColor: "white",
       padding: 12,
-      color: "black",
-      fontSize: theme.typography.size.small,
+      color: "white",
+      fontSize: theme.typography.size.medium,
     },
     label: {
       fontFamily: theme.typography.family.regular,
-      fontSize: theme.typography.size.small,
+      fontSize: theme.typography.size.medium,
+      color: "white",
     },
     title: {
       marginTop: 100,
       marginBottom: 100,
-      color: theme.colors.primary,
+      color: theme.colors.secondary,
       fontFamily: theme.typography.family.bold,
       fontSize: theme.typography.size.large,
       alignSelf: "center",

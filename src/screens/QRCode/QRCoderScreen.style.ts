@@ -10,7 +10,7 @@ const styles = (theme: ThemeContextData) => {
       left: 0,
       width: "100%",
       height: windowHeight,
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.secondaryBackground,
     },
     background: {
       position: "absolute",
@@ -19,6 +19,7 @@ const styles = (theme: ThemeContextData) => {
       width: "100%",
       height: windowHeight,
       zIndex: 0,
+      backgroundColor: theme.colors.secondaryBackground,
     },
     container: {
       flex: 1,
@@ -33,7 +34,7 @@ const styles = (theme: ThemeContextData) => {
       marginTop: 50,
     },
     description: {
-      color: theme.colors.primary,
+      color: "white",
       fontFamily: theme.typography.family.light,
       fontSize: theme.typography.size.small,
       alignSelf: "center",

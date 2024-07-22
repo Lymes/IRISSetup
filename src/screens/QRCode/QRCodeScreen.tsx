@@ -26,16 +26,16 @@ export default function QRCoderScreen({ navigation }: QRProps) {
   return (
     <View style={style.safeContainer}>
       <LicenseCounter />
-      <Image source={qr} style={style.background} tintColor={"#0000aa22"} />
       <KeyboardAwareScrollView
         style={style.container}
         enableOnAndroid={true}
         extraScrollHeight={200}
         extraHeight={40}
       >
-        <Text style={style.title}>Scan QR code</Text>
         <QRScanner isActive={isFocused} onFound={setCode} />
-        <Text style={style.description}>or manually insert device code</Text>
+        <Text style={style.description}>
+          Scan or manually insert device code
+        </Text>
         <InputText
           value={code}
           autoCapitalize="none"
@@ -58,7 +58,7 @@ export default function QRCoderScreen({ navigation }: QRProps) {
           disabled={contextData.cloudData.length === 0}
           title="Go to Configure screen"
           onPress={() => {
-            navigation.navigate("BLE", { from: FromScreen.QR });
+            navigation.navigate("BLE", { from: FromScreen.LicenseSetup });
           }}
         />
         <Spinner visible={isSending} textContent={"Registering..."} />

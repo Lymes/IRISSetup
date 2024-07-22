@@ -16,14 +16,16 @@ const styles = (theme: ThemeContextData) => {
     maskedInput: {
       borderWidth: 0.5,
       borderRadius: 4,
+      borderColor: "white",
       padding: 12,
-      color: "black",
+      color: "white",
       fontFamily: theme.typography.family.regular,
       fontSize: theme.typography.size.small,
     },
     label: {
       fontFamily: theme.typography.family.regular,
-      fontSize: theme.typography.size.small,
+      fontSize: theme.typography.size.medium,
+      color: "white",
     },
   });
 };

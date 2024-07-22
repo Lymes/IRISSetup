@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG_HOME" translatesAutoresizingMaskIntoConstraints="NO" id="bM8-cn-ZGp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="41P-S9-b7J">
                                 <rect key="frame" x="17.5" y="221" width="340" height="225"/>
                                 <constraints>
@@ -28,7 +31,11 @@
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="bM8-cn-ZGp" secondAttribute="trailing" id="JmR-Ba-jFS"/>
+                            <constraint firstItem="bM8-cn-ZGp" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="LV0-4w-bYR"/>
+                            <constraint firstAttribute="bottom" secondItem="bM8-cn-ZGp" secondAttribute="bottom" id="Na2-gD-sF2"/>
                             <constraint firstItem="41P-S9-b7J" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="XpT-Ju-nVO"/>
+                            <constraint firstItem="bM8-cn-ZGp" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="d5P-yU-9Ws"/>
                             <constraint firstItem="41P-S9-b7J" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="evD-hG-eqE"/>
                         </constraints>
                     </view>
@@ -39,6 +46,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BG_HOME" width="393" height="852"/>
         <image name="logo" width="680" height="450"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

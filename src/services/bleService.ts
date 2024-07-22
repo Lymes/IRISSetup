@@ -39,7 +39,7 @@ const init = (): Promise<boolean> => {
 
 const startScan = (services: string[]): Promise<boolean> => {
   return new Promise((resolve) => {
-    BleManager.scan(services, 3, false)
+    BleManager.scan(services, 3, true)
       .then(() => {
         console.log("BLE scanning...");
         resolve(true);

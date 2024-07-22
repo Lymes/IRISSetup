@@ -6,7 +6,9 @@ const LicenseCounter = () => {
 
   return (
     <View style={style.Container}>
-      <Text>{"Locked licenses: " + contextData.cloudData.length}</Text>
+      <Text style={style.label}>
+        {"Locked licenses: " + contextData.cloudData.length}
+      </Text>
     </View>
   );
 };

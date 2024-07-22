@@ -4,20 +4,21 @@ import { ThemeContextData } from "~themes/ThemeProvider";
 const styles = (theme: ThemeContextData) => {
   return StyleSheet.create({
     Container: {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: 30,
-      backgroundColor: "#8cd3f6",
-      flex: 1,
+      width: "90%",
+      height: 92,
       alignItems: "center",
       justifyContent: "center",
+      alignSelf: "center",
       zIndex: 100,
+      margin: 20,
+      borderRadius: 10,
+      borderColor: "#158CED",
+      borderWidth: 1,
     },
     label: {
       fontFamily: theme.typography.family.regular,
-      fontSize: theme.typography.size.small,
+      fontSize: theme.typography.size.medium,
+      color: "white",
     },
   });
 };

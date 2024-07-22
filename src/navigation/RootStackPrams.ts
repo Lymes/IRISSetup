@@ -1,5 +1,5 @@
 export enum FromScreen {
-  QR,
+  LicenseSetup,
   NetworkConfig,
   Monitoring,
 }
@@ -25,4 +25,8 @@ export type RootStackParamList = {
   IfaceConfig: { iface: NetIface };
   Monitoring: undefined;
   XXX: undefined;
+  HomeStack: undefined;
+  LicenseStack: undefined;
+  NetworkStack: undefined;
+  MonitorStack: undefined;
 };

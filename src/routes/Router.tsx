@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppStack } from "./AppStack";
-import Spinner from "~components/Spinner";
 import SplashScreen from "react-native-splash-screen";
-import { useNetInfo } from "@react-native-community/netinfo";
+import { StatusBar } from "react-native";
 
 export const Router = () => {
   useEffect(() => {
@@ -12,6 +11,11 @@ export const Router = () => {
 
   return (
     <NavigationContainer>
+      <StatusBar
+        translucent
+        backgroundColor="#5E8D48"
+        barStyle="light-content"
+      />
       <AppStack />
     </NavigationContainer>
   );

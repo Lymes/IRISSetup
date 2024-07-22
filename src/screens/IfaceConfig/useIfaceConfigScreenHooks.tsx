@@ -9,9 +9,11 @@ import { RadioButtonProps } from "react-native-radio-buttons-group";
 import { IfaceMode } from "~contexts/NetworkConfig";
 import { bleService } from "~services/bleService";
 import * as fflate from "fflate";
+import useTheme from "~hooks/useTheme";
 
 export default () => {
   const style = useThemedStyles(styles);
+  const theme = useTheme();
   const { contextData, setContextData, peripheral } = useAppContext();
   const [isSending, setIsSending] = useState<boolean>(false);
   const [localConfig, setLocalConfig] = useState(
@@ -28,6 +30,8 @@ export default () => {
       label: value,
       value: value,
       borderSize: 0.5,
+      color: "white",
+      labelStyle: { color: "white", fontSize: theme.typography.size.medium },
     }));
   };
   const navigation = useNavigation();

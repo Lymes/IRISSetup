@@ -897,7 +897,7 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-  - react-native-safe-area-context (4.10.1):
+  - react-native-safe-area-context (4.10.8):
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
@@ -1076,11 +1076,15 @@ PODS:
     - React-perflogger (= 0.73.8)
   - RNCAsyncStorage (1.23.1):
     - React-Core
-  - RNScreens (3.31.1):
+  - RNReactNativeHapticFeedback (2.2.0):
+    - React-Core
+  - RNScreens (3.32.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - React-RCTImage
+  - RNSVG (15.3.0):
+    - React-Core
   - RNWifi (4.12.1):
     - React-Core
   - SocketRocket (0.6.1)
@@ -1150,7 +1154,9 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNWifi (from `../node_modules/react-native-wifi-reborn`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1276,8 +1282,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNReactNativeHapticFeedback:
+    :path: "../node_modules/react-native-haptic-feedback"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNWifi:
     :path: "../node_modules/react-native-wifi-reborn"
   VisionCamera:
@@ -1320,7 +1330,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: 076df4f9b07f6670acf4ce9a75aac8d34c2e2ccc
   react-native-orientation-locker: 5819fd23ca89cbac0d736fb4314745f62716d517
   react-native-persist-context: 1da55991eaa354bf94eb34184cccbef117266137
-  react-native-safe-area-context: dcab599c527c2d7de2d76507a523d20a0b83823d
+  react-native-safe-area-context: b7daa1a8df36095a032dff095a1ea8963cb48371
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-text-input-mask: a273f7823ac4cb7189ea96873fd7b4a48b8aaaaa
   react-native-zeroconf: 5b38b434ccc6ca245c8a5ffd64a4501e67f9edcb
@@ -1345,7 +1355,9 @@ SPEC CHECKSUMS:
   React-utils: 4cc2ba652f5df1c8f0461d4ae9e3ee474c1354ea
   ReactCommon: 1da3fc14d904883c46327b3322325eebf60a720a
   RNCAsyncStorage: 826b603ae9c0f88b5ac4e956801f755109fa4d5c
-  RNScreens: 134a7511b12b8eb440b87aac21e36a71295d6024
+  RNReactNativeHapticFeedback: ec56a5f81c3941206fd85625fa669ffc7b4545f9
+  RNScreens: e842cdccb23c0a084bd6307f6fa83fd1c1738029
+  RNSVG: a48668fd382115bc89761ce291a81c4ca5f2fd2e
   RNWifi: d4dbe8edf13059dbffdc96181bb695caa726831c
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   VisionCamera: 36c460338692788a0d377dce7d32f8ba049fb4f2

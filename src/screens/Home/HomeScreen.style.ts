@@ -27,12 +27,15 @@ const styles = (theme: ThemeContextData) => {
       rowGap: 20,
       zIndex: 1,
     },
+    logo: {
+      marginTop: 80,
+      alignSelf: "center",
+    },
     title: {
-      marginTop: 100,
-      marginBottom: 100,
-      color: theme.colors.primary,
-      fontFamily: theme.typography.family.bold,
-      fontSize: theme.typography.size.large,
+      marginBottom: 50,
+      color: theme.colors.secondary,
+      fontFamily: theme.typography.family.light,
+      fontSize: theme.typography.size.huge,
       alignSelf: "center",
     },
     ctaButton: {

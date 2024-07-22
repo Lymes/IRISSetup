@@ -5,7 +5,7 @@ const styles = (theme: ThemeContextData) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.secondaryBackground,
     },
     background: {
       flex: 1,
@@ -26,9 +26,9 @@ const styles = (theme: ThemeContextData) => {
       marginTop: 50,
     },
     description: {
-      color: theme.colors.primary,
+      color: "white",
       fontFamily: theme.typography.family.light,
-      fontSize: theme.typography.size.small,
+      fontSize: theme.typography.size.medium,
       alignSelf: "center",
       margin: 20,
     },
