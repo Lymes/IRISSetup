@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "BG_HOME.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
